@@ -1,0 +1,21 @@
+{
+    "extends": "tslint:recommended",
+    "rulesDirectory": ["tslint-plugin-prettier"],
+    "rules": {
+        "prettier": [
+            true,
+            {
+                "printWidth": 120,
+                "tabWidth": 2,
+                "tabs": false,
+                "semi": true,
+                "singleQuote": true,
+                "quoteProps": "as-needed",
+                "trailingComma": "all",
+                "bracketSpacing": true,
+                "jsxBracketSameLine": false,
+                "arrowParens": "always"
+            }
+        ]
+    }
+}
