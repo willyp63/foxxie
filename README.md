@@ -1,22 +1,25 @@
 # foxxie
 The end of the old; the beginning of that which is to come.
 
-UI:
+
+# DETAILS
+###### UI ######
 
 Language: Typescript Framework: Angular Component Library: Angular Material CSS: Angular Material https://material.angular.io/guide/theming
-
 Linting: tslint
-Unit Tests: Karma and Jasmin
+Unit Tests: Karma and Jasmin (Google standard)
 Automated Tests: Cypress
 
 API:
-Language: Typescript Framework: Nest
-Swagger Update Unit Tests: Karma or Jasmin Automated Tests:
+Language: Typescript
+Framework: Nest
+Swagger Update Unit Tests: Karma and Jasmin (Google's standard)
+Automated Tests:
 
 Database:
-Dynamo (on AWS)
+Dynamo for AWS
 
-##############
+# CI/CD
 
 OOP approach building for delete-ability
 
@@ -29,3 +32,5 @@ All PR's must pass the following for merge and payment:
 6- QA check and automated test
 7- merge
 8- payment
+
+# GETTING STARTED
