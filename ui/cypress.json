@@ -1,0 +1,12 @@
+{
+  "integrationFolder": "cypress/app",
+  "testFiles": "**/cy-spec.ts",
+  "sourceType": true,
+  "supportFile": "cypress/support/index.js",
+  "defaultCommandTimeout": 10000,
+  "viewportWidth": 1440,
+  "viewportHeight": 1200,
+  "env": {
+    "foxxie_base": "http://localhost:4200"
+  }
+}
