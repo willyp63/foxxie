@@ -7,7 +7,10 @@
     "build": "ng build",
     "test": "ng test",
     "lint": "tslint src/**/*.ts && ng lint",
-    "e2e": "ng e2e"
+    "e2e": "ng e2e",
+    "cypress-ui": "./node_modules/.bin/cypress open",
+    "cypress-headless": "./node_modules/.bin/cypress run",
+    "cypress-chrome": "./node_modules/.bin/cypress run --browser chrome"
   },
   "private": true,
   "dependencies": {
@@ -31,6 +34,9 @@
     "@types/jasmine": "~3.3.8",
     "@types/jasminewd2": "~2.0.3",
     "@types/node": "~8.9.4",
+    "@cypress/webpack-preprocessor": "^4.0.3",
+    "cypress": "3.3.2",
+    "cypress-plugin-tab": "^1.0.1",
     "codelyzer": "^5.0.0",
     "jasmine-core": "~3.4.0",
     "jasmine-spec-reporter": "~4.2.1",
