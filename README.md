@@ -5,7 +5,7 @@ The end of the old; the beginning of that which is to come.
 # DETAILS
 ###### UI ######
 
-Language: Typescript Framework: Angular Component Library: Angular Material CSS: Angular Material https://material.angular.io/guide/theming
+Language: Typescript Framework: Angular Component Library: Angular Material CSS: Bootstrap or Tailwind https://material.angular.io/guide/theming
 Linting: tslint
 Unit Tests: Karma and Jasmin (Google standard)
 Automated Tests: Cypress
@@ -17,7 +17,7 @@ Swagger Update Unit Tests: Karma and Jasmin (Google's standard)
 Automated Tests:
 
 Database:
-Dynamo for AWS
+MongoDB
 
 # CI/CD
 
