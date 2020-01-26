@@ -5,7 +5,9 @@
   "author": "",
   "license": "MIT",
   "scripts": {
+    "postinstall": "npm --prefix ui i",
     "prebuild": "npm i -g @nestjs/cli && rimraf dist",
+    "postbuild": "npm run --prefix ui build:prod",
     "build": "nest build -p tsconfig.json",
     "format": "prettier --write \"src/**/*.ts\" \"test/**/*.ts\"",
     "start": "nest start -p tsconfig.json",
@@ -23,13 +25,15 @@
     "@nestjs/common": "^6.7.2",
     "@nestjs/core": "^6.7.2",
     "@nestjs/platform-express": "^6.7.2",
+    "@nestjs/serve-static": "^1.0.2",
+    "@types/node": "^12.12.25",
     "class-transformer": "^0.2.3",
     "class-validator": "^0.11.0",
     "mongodb": "^3.5.2",
     "reflect-metadata": "^0.1.13",
     "rimraf": "^3.0.0",
     "rxjs": "^6.5.3",
-    "@types/node": "^12.12.25"
+    "ui": "file:./ui"
   },
   "devDependencies": {
     "@nestjs/cli": "^6.9.0",
