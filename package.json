@@ -1,18 +1,19 @@
 {
-    "name": "foxxie",
-    "version": "1.0.0",
-    "description": "",
-    "scripts": {
-      "start": "npm run --prefix api start"
-    },
-    "keywords": [],
-    "author": "",
-    "license": "ISC",
-    "dependencies": {
-      "api": "./api",
-      "ui": "./ui"
-    },
-    "engines": {
-      "node": "10.x"
-    }
+  "name": "foxxie",
+  "version": "1.0.0",
+  "description": "",
+  "scripts": {
+    "start": "npm run --prefix api start",
+    "install": "npm --prefix ui i && npm --prefix api i"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "api": "file:./api",
+    "ui": "file:./ui"
+  },
+  "engines": {
+    "node": "10.x"
+  }
 }
