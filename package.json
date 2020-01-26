@@ -29,9 +29,6 @@
     "reflect-metadata": "^0.1.13",
     "rimraf": "^3.0.0",
     "rxjs": "^6.5.3",
-    "jest": "^24.9.0",
-    "@types/jest": "^24.0.18",
-    "@types/node": "^12.12.25"
   },
   "devDependencies": {
     "@nestjs/cli": "^6.9.0",
@@ -42,6 +39,7 @@
     "@types/mongodb": "^3.3.14",
     "@types/node": "^12.12.25",
     "@types/supertest": "^2.0.8",
+    "jest": "^24.9.0",
     "prettier": "^1.18.2",
     "supertest": "^4.0.2",
     "ts-jest": "^24.1.0",
