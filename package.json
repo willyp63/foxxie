@@ -3,7 +3,7 @@
   "version": "1.0.0",
   "description": "",
   "scripts": {
-    "start": "npm --prefix api start",
+    "start": "cat package.json",
     "install": "npm --prefix ui i && npm --prefix api i"
   },
   "keywords": [],
