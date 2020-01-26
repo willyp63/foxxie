@@ -1,21 +1,18 @@
 {
-    "extends": "tslint:recommended",
-    "rulesDirectory": ["tslint-plugin-prettier"],
-    "rules": {
-        "prettier": [
-            true,
-            {
-                "printWidth": 120,
-                "tabWidth": 2,
-                "tabs": false,
-                "semi": true,
-                "singleQuote": true,
-                "quoteProps": "as-needed",
-                "trailingComma": "all",
-                "bracketSpacing": true,
-                "jsxBracketSameLine": false,
-                "arrowParens": "always"
-            }
-        ]
-    }
+  "defaultSeverity": "error",
+  "extends": ["tslint:recommended"],
+  "jsRules": {
+    "no-unused-expression": true
+  },
+  "rules": {
+    "quotemark": [true, "single"],
+    "member-access": [false],
+    "ordered-imports": [false],
+    "max-line-length": [true, 150],
+    "member-ordering": [false],
+    "interface-name": [false],
+    "arrow-parens": false,
+    "object-literal-sort-keys": false
+  },
+  "rulesDirectory": []
 }
