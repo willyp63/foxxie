@@ -6,7 +6,7 @@
   "license": "MIT",
   "scripts": {
     "postinstall": "npm --prefix ui i",
-    "prebuild": "npm i -g @nestjs/cli && rimraf dist",
+    "prebuild": "npm install -g @angular/cli && npm i -g @nestjs/cli && rimraf dist",
     "postbuild": "npm run --prefix ui build:prod",
     "build": "nest build -p tsconfig.json",
     "format": "prettier --write \"src/**/*.ts\" \"test/**/*.ts\"",

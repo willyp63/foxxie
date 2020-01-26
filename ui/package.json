@@ -5,7 +5,7 @@
     "ng": "ng",
     "start": "ng serve",
     "build": "ng build",
-    "build:prod": "npm i -g @angular/cli && ng build --prod",
+    "build:prod": "ng build --prod",
     "test": "ng test",
     "lint": "tslint src/**/*.ts && ng lint",
     "e2e": "ng e2e",
