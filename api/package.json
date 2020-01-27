@@ -5,8 +5,6 @@
   "author": "",
   "license": "MIT",
   "scripts": {
-    "prebuild": "npm i -g @nestjs/cli && rimraf dist",
-    "postbuild": "npm run --prefix ui build:prod",
     "build": "nest build -p tsconfig.json",
     "format": "prettier --write \"src/**/*.ts\" \"test/**/*.ts\"",
     "start": "nest start -p tsconfig.json",
@@ -25,14 +23,11 @@
     "@nestjs/core": "^6.7.2",
     "@nestjs/platform-express": "^6.7.2",
     "@nestjs/serve-static": "^1.0.2",
-    "@types/node": "^12.12.25",
     "class-transformer": "^0.2.3",
     "class-validator": "^0.11.0",
     "mongodb": "^3.5.2",
     "reflect-metadata": "^0.1.13",
-    "rimraf": "^3.0.0",
-    "rxjs": "^6.5.3",
-    "ui": "file:./ui"
+    "rxjs": "^6.5.3"
   },
   "devDependencies": {
     "@nestjs/cli": "^6.9.0",
@@ -41,9 +36,11 @@
     "@types/express": "^4.17.1",
     "@types/jest": "^24.0.18",
     "@types/mongodb": "^3.3.14",
+    "@types/node": "^12.12.25",
     "@types/supertest": "^2.0.8",
     "jest": "^24.9.0",
     "prettier": "^1.18.2",
+    "rimraf": "^3.0.0",
     "supertest": "^4.0.2",
     "ts-jest": "^24.1.0",
     "ts-loader": "^6.1.1",
@@ -65,8 +62,5 @@
     },
     "coverageDirectory": "../coverage",
     "testEnvironment": "node"
-  },
-  "engines": {
-    "node": "12.x"
   }
 }
