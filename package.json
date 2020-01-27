@@ -1,0 +1,22 @@
+{
+  "name": "foxxie",
+  "version": "1.0.0",
+  "description": "The end of the old; the beginning of that which is to come.",
+  "scripts": {
+    "install": "npm --prefix ui i && npm --prefix api i"
+  },
+  "dependencies": {
+    "api": "file:./api",
+    "ui": "file:./ui"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/your-friend-foxxie/foxxie.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/your-friend-foxxie/foxxie/issues"
+  },
+  "homepage": "https://github.com/your-friend-foxxie/foxxie#readme"
+}
