@@ -3,8 +3,8 @@
   "version": "1.0.0",
   "description": "The end of the old; the beginning of that which is to come.",
   "scripts": {
-    "install": "npm install --prefix ./ui ui && npm install --prefix ./api api && ls ./api/node_modules",
-    "build": "npm run build --prefix ./ui && npm run build --prefix ./api",
+    "install": "echo \"INSTALLING...\" && npm run install --prefix ./api api && ls ./api/node_modules",
+    "build": "echo \"BUILDING...\" && npm run build --prefix ./api",
     "start": "npm run start:prod --prefix ./api"
   },
   "dependencies": {
