@@ -3,9 +3,13 @@
   "version": "1.0.0",
   "description": "The end of the old; the beginning of that which is to come.",
   "scripts": {
-    "install": "pushd ui && npm i && popd && pushd api && npm i && popd",
+    "install": "npm i --prefix ./ui ui && npm i --prefix ./api api",
     "build": "npm run build:prod --prefix ./ui && npm run build:prod --prefix ./api",
     "start": "npm run start:prod --prefix ./api"
+  },
+  "dependencies": {
+    "ui": "file:./ui",
+    "api": "file:./api"
   },
   "repository": {
     "type": "git",
