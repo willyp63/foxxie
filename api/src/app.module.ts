@@ -8,11 +8,9 @@ import { DatabaseService } from './services/database/database.service';
 import { UserService } from './services/user/user.service';
 
 @Module({
-  imports: [
-    ServeStaticModule.forRoot({
-      rootPath: join(__dirname, 'ui'),
-    }),
-  ],
+  imports: process.env.NODE_ENV === 'production'
+    ? [ServeStaticModule.forRoot({ rootPath: join(__dirname, '..', 'ui') })]
+    : [],
   controllers: [
     // Controllers
     UserController,
