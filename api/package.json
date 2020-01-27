@@ -5,7 +5,7 @@
   "author": "",
   "license": "MIT",
   "scripts": {
-    "build": "nest build -p tsconfig.json",
+    "build:prod": "nest build -p tsconfig.json",
     "format": "prettier --write \"src/**/*.ts\" \"test/**/*.ts\"",
     "start": "nest start -p tsconfig.json",
     "start:dev": "nest start --watch",
