@@ -3,7 +3,8 @@
   "version": "1.0.0",
   "description": "The end of the old; the beginning of that which is to come.",
   "scripts": {
-    "install": "npm --prefix ui i && npm --prefix api i"
+    "install": "npm install --prefix ./ui ui && npm install --prefix ./api api",
+    "build": "npm build --prefix ./ui && npm build --prefix ./api"
   },
   "dependencies": {
     "api": "file:./api",
