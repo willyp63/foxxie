@@ -5,6 +5,7 @@
   "scripts": {
     "install": "npm i --prefix ./ui ui && npm i --prefix ./api api",
     "build": "npm run build:prod --prefix ./ui && npm run build:prod --prefix ./api",
+    "postbuild": "echo \"POST BUILDING...\" && cp -r ./ui/dist/ ./api/ui/",
     "start": "npm run start:prod --prefix ./api"
   },
   "dependencies": {

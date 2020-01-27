@@ -10,7 +10,7 @@ import { UserService } from './services/user/user.service';
 @Module({
   imports: [
     ServeStaticModule.forRoot({
-      rootPath: join(__dirname, '..', 'ui', 'dist', 'ui'),
+      rootPath: join(__dirname, 'ui'),
     }),
   ],
   controllers: [
