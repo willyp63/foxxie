@@ -4,7 +4,8 @@
   "description": "The end of the old; the beginning of that which is to come.",
   "scripts": {
     "install": "npm install --prefix ./ui ui && npm install --prefix ./api api",
-    "build": "npm build --prefix ./ui && npm build --prefix ./api"
+    "build": "npm build --prefix ./ui && npm build --prefix ./api",
+    "start": "npm start --prefix ./api"
   },
   "dependencies": {
     "api": "file:./api",
