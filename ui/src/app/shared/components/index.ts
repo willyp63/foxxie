@@ -1,10 +1,10 @@
-import { ButtonComponent } from './button/button.component';
+import { NavBarComponent } from './nav-bar/nav-bar.component';
 import { TextfieldComponent } from './textfield/textfield.component';
 
 export const components: any[] = [
-    ButtonComponent,
+    NavBarComponent,
     TextfieldComponent,
 ];
 
-export * from './button/button.component';
+export * from './nav-bar/nav-bar.component';
 export * from './textfield/textfield.component';

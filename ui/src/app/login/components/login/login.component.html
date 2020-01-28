@@ -1,1 +1,10 @@
-<p>login works!</p>
+<div class="min-h-screen flex flex-col">
+    <fxx-nav-bar></fxx-nav-bar>
+    <div class="flex-grow flex items-center justify-center">
+        <form class="w-64 flex flex-col items-stretch p-8 bg-gray-700 shadow-lg" [formGroup]="formGroup" (ngSubmit)="onSubmit()">
+            <fxx-textfield label="Username" placeholder="Username" formControlName="username" [errorDictionary]="errorDictionary" [errors]="usernameErrors"></fxx-textfield>
+            <fxx-textfield type="password" label="Password" placeholder="Password" formControlName="password" [errorDictionary]="errorDictionary" [errors]="passwordErrors"></fxx-textfield>
+            <button type="submit" class="btn btn-blue mt-4 self-end">Sign In</button>
+        </form>
+    </div>
+</div>

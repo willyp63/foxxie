@@ -1,1 +1,3 @@
-<p>textfield works!</p>
+<label class="text-white text-lg leading-relaxed">{{ label }}</label>
+<input #input class="textfield" [placeholder]="placeholder" [type]="type" (input)="onChange()" />
+<p class="text-red-500 text-xs italic leading-loose" [innerHtml]="errorMsg | safe: 'html'"></p>
