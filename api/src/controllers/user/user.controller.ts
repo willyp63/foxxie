@@ -22,7 +22,11 @@ export class UserController {
     @Post('/login')
     @HttpCode(200)
     async loginUser(@Body() { username, password }: Partial<User>): Promise<User> {
+        console.log(`Logging in: ${username} & ${password}`);
+
         const user = await this.userService.getByUsernameAndPassword(username, password);
+
+        console.log(`Found user: ${user}`);
 
         if (!user) {
             throw new BadRequestException('Invalid credentials');
