@@ -36,10 +36,10 @@ export class UserService {
         });
     }
 
-    getByEmailAndPassword(userEmail: string, userPassword: string): Promise<User> {
+    getByUsernameAndPassword(username: string, password: string): Promise<User> {
         return new Promise(resolve => {
             this.databaseService.getUserCollection().then(collection => {
-                collection.findOne({ email: userEmail, password: userPassword }).then(user => resolve(user));
+                collection.findOne({ username, password }).then(user => resolve(user));
             });
         });
     }
