@@ -11,4 +11,8 @@ export class NavBarComponent {
 
   get isLoggedIn() { return this.authService.isLoggedIn(); }
   get username() { return this.authService.getLoggedInUser().username; }
+
+  logout() {
+    this.authService.logout();
+  }
 }

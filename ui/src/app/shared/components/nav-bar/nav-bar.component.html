@@ -1,7 +1,7 @@
 <div class="h-16 py-2 px-4 flex justify-between items-center bg-gray-700 shadow-lg">
     <div class="text-white">
         <div *ngIf="isLoggedIn" class="text-lg leading-none">{{ username }}</div>
-        <button *ngIf="isLoggedIn" class="text-sm underline hover:no-underline">logout</button>
+        <button *ngIf="isLoggedIn" class="text-sm underline hover:no-underline" (click)="logout()">logout</button>
     </div>
     <img class="flex-initial w-16 h-16" src="assets/foxxie.png" />
 </div>
