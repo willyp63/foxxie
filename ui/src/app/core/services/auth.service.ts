@@ -1,8 +1,8 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-
-import { tap } from 'rxjs/operators';
 import { Router } from '@angular/router';
+import { environment } from '@env';
+import { tap } from 'rxjs/operators';
 
 @Injectable({ providedIn: 'root' })
 export class AuthService {
@@ -17,7 +17,7 @@ export class AuthService {
 
   login(username: string, password: string) {
     // TODO: standardize API response object
-    return this.http.post('http://localhost:3000/api/v1/user/login', { username, password }).pipe(
+    return this.http.post(environment.apiUrl + '/user/login', { username, password }).pipe(
       tap(user => {
         this.loggedInUser = user;
         localStorage.setItem('loggedInUser', JSON.stringify(user));
