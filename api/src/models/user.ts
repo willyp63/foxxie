@@ -1,9 +1,9 @@
-import { ObjectId } from 'mongodb';
 import { IsNotEmpty, IsEmail } from 'class-validator';
 import { Expose } from 'class-transformer';
+import { ObjectId } from 'mongodb';
 
 export class User {
-    id: ObjectId;
+    _id: string | ObjectId;
 
     @Expose()
     @IsNotEmpty()
@@ -17,4 +17,6 @@ export class User {
     @Expose()
     @IsNotEmpty()
     password: string;
+
+    assignedTicketId?: string;
 }

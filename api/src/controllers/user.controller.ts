@@ -1,9 +1,9 @@
 import { Controller, Post, Body, BadRequestException, HttpCode, Get } from '@nestjs/common';
 
-import { UserService } from '../../services/user/user.service';
-import { User } from '../../models/user';
+import { UserService } from '../services/user.service';
+import { User } from '../models/user';
 
-@Controller('user')
+@Controller('users')
 export class UserController {
     constructor(
         private readonly userService: UserService,
@@ -19,7 +19,7 @@ export class UserController {
         return this.userService.add(user);
     }
 
-    @Post('/login')
+    @Post('login')
     @HttpCode(200)
     async loginUser(@Body() { username, password }: Partial<User>): Promise<User> {
         const user = await this.userService.getByUsernameAndPassword(username, password);

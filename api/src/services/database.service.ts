@@ -1,10 +1,11 @@
 import { Injectable } from '@nestjs/common';
 import { Db, MongoClient, Collection } from 'mongodb';
 
-import { MONGO_URL, DB_NAME } from '../../constants/db';
-import { COLLECTION_NAMES } from '../../constants/collection-names';
+import { MONGO_URL, DB_NAME } from '../constants/db';
+import { COLLECTION_NAMES } from '../constants/collection-names';
 
-import { User } from '../../models/user';
+import { User } from '../models/user';
+import { Ticket } from '../models/ticket';
 
 @Injectable()
 export class DatabaseService {
@@ -22,4 +23,5 @@ export class DatabaseService {
     }
 
     getUserCollection = () => this.getCollection<User>(COLLECTION_NAMES.USER);
+    getTicketCollection = () => this.getCollection<Ticket>(COLLECTION_NAMES.TICKET);
 }
