@@ -1,9 +1,10 @@
 import { Action, createReducer, on } from '@ngrx/store';
 import * as AuthActions from '../actions/auth.actions';
+import { User } from '@core/models/user.model';
 
 export interface State {
     hasFailedLogin: boolean;
-    loggedInUser: any;
+    loggedInUser: User;
 };
 
 export const initialState: State = {
