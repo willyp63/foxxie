@@ -16,6 +16,7 @@ const LOCAL_STORAGE_KEY = 'loggin-in-user';
 
 const authReducer = createReducer(
     initialState,
+    on(AuthActions.login, state => ({ ...state, hasFailedLogin: false })),
     on(AuthActions.loginFromLocalStorage, state => {
         const userData = localStorage.getItem(LOCAL_STORAGE_KEY);
         return userData
