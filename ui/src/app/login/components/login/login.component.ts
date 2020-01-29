@@ -1,28 +1,24 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
-import { AuthService } from '@core/services';
-import { Router } from '@angular/router';
+import { Store } from '@ngrx/store';
+import { AppState, hasFailedLogin } from '@core/reducers';
+import { login } from '@core/actions/auth.actions';
 
 @Component({
   selector: 'fxx-login',
   templateUrl: './login.component.html',
   styleUrls: ['./login.component.scss']
 })
-export class LoginComponent implements OnInit {
-  constructor(private authService: AuthService, private router: Router) {}
+export class LoginComponent {
+  hasFailedLogin$ = this.store.select(hasFailedLogin);
 
-  ngOnInit(): void {
-    if (this.authService.isLoggedIn()) {
-      this.router.navigate(['/']);
-    }
-  }
+  constructor(private store: Store<AppState>) {}
 
   formGroup = new FormGroup({
     username: new FormControl('', [Validators.required]),
     password: new FormControl('', [Validators.required]),
   });
 
-  loginAttemptFailed = false;
   errorDictionary = { required: 'Required' };
 
   get username() { return this.formGroup.get('username') }
@@ -31,10 +27,6 @@ export class LoginComponent implements OnInit {
   get passwordErrors() { return this.password.touched ? this.password.errors : null; }
 
   onSubmit() {
-    this.authService.login(this.username.value, this.password.value).subscribe((userData) => {
-      this.router.navigate(['/']);
-    }, () => {
-      this.loginAttemptFailed = true;
-    });
+    this.store.dispatch(login({ username: this.username.value, password: this.password.value }));
   }
 }

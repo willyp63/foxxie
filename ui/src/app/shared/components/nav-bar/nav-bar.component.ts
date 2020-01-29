@@ -1,5 +1,7 @@
 import { Component } from '@angular/core';
-import { AuthService } from '@core/services';
+import { Store } from '@ngrx/store';
+import { AppState, isLoggedIn, getLoggedInUsername } from '@core/reducers';
+import { logout } from '@core/actions/auth.actions';
 
 @Component({
   selector: 'fxx-nav-bar',
@@ -7,12 +9,12 @@ import { AuthService } from '@core/services';
   styleUrls: ['./nav-bar.component.scss']
 })
 export class NavBarComponent {
-  constructor(private authService: AuthService) { }
+  isLoggedIn$ = this.store.select(isLoggedIn);
+  username$ = this.store.select(getLoggedInUsername);
 
-  get isLoggedIn() { return this.authService.isLoggedIn(); }
-  get username() { return this.authService.getLoggedInUser().username; }
+  constructor(private store: Store<AppState>) { }
 
   logout() {
-    this.authService.logout();
+    this.store.dispatch(logout());
   }
 }
