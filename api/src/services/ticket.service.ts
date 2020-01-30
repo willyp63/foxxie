@@ -32,18 +32,26 @@ export class TicketService {
 
     pickUpTicket(userId: string): Promise<Ticket> {
         return new Promise(resolve => {
-            this.databaseService.getTicketCollection().then(collection => {
-                collection.findOne({ status: TicketStatus.Unassigned }).then(unassignedTicket => {
-                    if (unassignedTicket) {
-                        this.userService.assignTicketToUser(unassignedTicket._id as string, userId).then(() => {
-                            collection.updateOne(
-                                { _id: new ObjectId(unassignedTicket._id) },
-                                { $set: { status: TicketStatus.Assigned } },
-                            ).then(() => resolve(unassignedTicket));
-                        });
-                    } else {
-                        resolve(null);
-                    }
+            this.getTicketAssignedToUser(userId).then(currentlyAssignedTicket => {
+                if (currentlyAssignedTicket) {
+                    resolve(null)
+                    return;
+                }
+        
+                this.databaseService.getTicketCollection().then(collection => {
+                    collection.find().sort({ priority: 1, name: 1 }).filter({ status: TicketStatus.Unassigned }).toArray().then(unassignedTickets => {
+                        if (unassignedTickets.length > 0) {
+                            const ticket = unassignedTickets[0];
+                            this.userService.assignTicketToUser(ticket._id as string, userId).then(() => {
+                                collection.updateOne(
+                                    { _id: new ObjectId(ticket._id) },
+                                    { $set: { status: TicketStatus.Assigned } },
+                                ).then(() => resolve(ticket));
+                            });
+                        } else {
+                            resolve(null);
+                        }
+                    });
                 });
             });
         });

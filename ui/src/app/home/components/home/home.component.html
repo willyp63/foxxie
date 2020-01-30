@@ -1,2 +1,20 @@
 <fxx-nav-bar></fxx-nav-bar>
-<p class="text-center">You're on the inside</p>
+<div *ngIf="!(isFetchingMyTicket$ | async)">
+    <div *ngIf="myTicket$ | async as myTicket" class="p-8 max-w-6xl">
+        <div class="flex">
+            <h1 class="text-4xl">{{ myTicket.name }}</h1>
+            <div class="text-xl ml-8 leading-loose">{{ myTicket.price | currency }}</div>
+        </div>
+        <div class="mt-8">
+            {{ myTicket.description }}
+        </div>
+        <h2 class="text-3xl mt-8">It Must</h2>
+        <ul>
+            <li *ngFor="let must of myTicket.itMust">it('{{ must }}')</li>
+        </ul>
+    </div>
+    <div *ngIf="!(myTicket$ | async)" class="flex flex-col items-center pt-8">
+        <p *ngIf="isNoTicketToPickUp$ | async" class="text-center text-xl text-red-500 font-bold text-center mb-8">There are no tickets to pick up right now.</p>
+        <button class="btn btn-blue" (click)="pickUpTicket()">Pick up a ticket!</button>
+    </div>
+</div>

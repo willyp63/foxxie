@@ -6,7 +6,6 @@ import { AuthService } from '@core/services';
 import { login, loginFailed, loginSuccess, logout } from '@core/actions/auth.actions';
 import { Router } from '@angular/router';
 import { noop } from '@core/actions/noop.actions';
-import { User } from '@core/models/user.model';
  
 @Injectable()
 export class AuthEffects {
@@ -15,7 +14,7 @@ export class AuthEffects {
       ofType(login),
       mergeMap(({ username, password }) => this.authService.login(username, password)
         .pipe(
-          map(user => loginSuccess(user as User)),
+          map(user => loginSuccess(user)),
           catchError(() => of(loginFailed()))
         )
       )

@@ -36,11 +36,6 @@ export class TicketController {
             throw new BadRequestException('userId required');
         }
 
-        const currentlyAssignedTicket = this.ticketService.getTicketAssignedToUser(userId);
-        if (currentlyAssignedTicket) {
-            return null;
-        }
-
         return this.ticketService.pickUpTicket(userId);
     }
 

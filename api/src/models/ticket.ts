@@ -3,9 +3,9 @@ import { Expose } from 'class-transformer';
 import { ObjectId } from 'mongodb';
 
 export enum TicketStatus {
-    Unassigned,
-    Assigned,
-    Done,
+    Unassigned = 0,
+    Assigned = 1,
+    Done = 2,
 }
 
 export class Ticket {
