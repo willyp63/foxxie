@@ -40,6 +40,6 @@ export class Ticket extends MongoDoc {
     @IsNotEmpty()
     itMust: string[];
 
-    status?: TicketStatus;
+    status: TicketStatus;
     rejections?: TicketRejection[];
 }

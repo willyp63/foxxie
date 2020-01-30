@@ -67,7 +67,7 @@ export class TicketService {
 
         // add rejection to ticket
         const ticketCollection = await this.db.getTicketCollection();
-        await ticketCollection.update(
+        await ticketCollection.updateOne(
             { _id: new ObjectId(ticket._id) },
             { $push: { rejections: rejection } }
         );

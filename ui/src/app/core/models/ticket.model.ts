@@ -11,9 +11,11 @@ export interface TicketRejection {
 
 export interface Ticket {
     _id: string;
+    name: string;
     price: number;
     priority: number;
     description: string;
     itMust: string[];
     status: TicketStatus;
+    rejections?: TicketRejection[];
 }
