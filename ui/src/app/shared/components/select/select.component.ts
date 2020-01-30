@@ -2,27 +2,24 @@ import { Component, Input, forwardRef, ViewChild, ElementRef } from '@angular/co
 import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
 
 @Component({
-  selector: 'fxx-textfield',
-  templateUrl: './textfield.component.html',
-  styleUrls: ['./textfield.component.scss'],
+  selector: 'fxx-select',
+  templateUrl: './select.component.html',
+  styleUrls: ['./select.component.scss'],
   providers: [
     {
       provide: NG_VALUE_ACCESSOR,
-      useExisting: forwardRef(() => TextfieldComponent),
+      useExisting: forwardRef(() => SelectComponent),
       multi: true
     }
   ],
 })
-export class TextfieldComponent implements ControlValueAccessor {
-  id: string = 'todo'; // TODO random generate id for each textfield at run time
-
-  @Input() type: string = 'text';
+export class SelectComponent implements ControlValueAccessor {
   @Input() placeholder: string = '';
-  @Input() label: string = '';
+  @Input() options: string[];
   @Input() errorDictionary: { [errorName: string]: string } = {};
   @Input() errors: { [errorName: string]: string };
 
-  @ViewChild('input' , { static: true }) inputEl: ElementRef;
+  @ViewChild('select' , { static: true }) selectEl: ElementRef;
 
   onChangeFn: any;
   onTouchedFn: any;
@@ -36,12 +33,12 @@ export class TextfieldComponent implements ControlValueAccessor {
   }
 
   onChange() {
-    this.onChangeFn(this.inputEl.nativeElement.value);
+    this.onChangeFn(this.selectEl.nativeElement.value);
     this.onTouchedFn();
   }
 
   writeValue(value: string): void {
-    this.inputEl.nativeElement.value = value;
+    this.selectEl.nativeElement.value = value;
   }
   registerOnChange(fn: any): void {
     this.onChangeFn = fn;

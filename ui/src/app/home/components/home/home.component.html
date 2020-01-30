@@ -1,23 +1,23 @@
-<div class="min-h-screen flex flex-col">
-    <fxx-nav-bar></fxx-nav-bar>
-    <div *ngIf="!(isFetchingMyTicket$ | async)" class="flex-grow">
-        <div *ngIf="myTicket$ | async as myTicket" class="py-4 px-8 m-8 lg:max-w-3/4 xl:max-w-1/2 bg-gray-400 rounded-lg">
-            <div class="flex justify-between items-baseline">
-                <h1 class="text-4xl">{{ myTicket.name }}</h1>
-                <div class="text-2xl ml-4">{{ myTicket.price | currency }}</div>
+<fxx-layout>
+    <ng-container *ngIf="!(isFetchingMyTicket$ | async)">
+        <div *ngIf="myTicket$ | async as myTicket" class="lg:flex">
+            <div class="lg:flex-grow">
+                <fxx-ticket [ticket]="myTicket"></fxx-ticket>
             </div>
-            <div class="text-lg mt-4">
-                {{ myTicket.description }}
+            <div class="lg:min-w-1/3">
+                <fxx-reject-panel></fxx-reject-panel>
             </div>
-            <h2 class="text-2xl mt-4">It Must:</h2>
-            <ul class="list-disc list-inside">
-                <li *ngFor="let must of myTicket.itMust" class="text-lg mt-2">it('{{ must }}')</li>
-            </ul>
         </div>
-        <div *ngIf="!(myTicket$ | async)" class="flex flex-col items-center pt-8">
-            <p *ngIf="isNoTicketToPickUp$ | async" class="text-center text-xl text-red-500 font-bold text-center mb-8">There are no tickets to pick up right now.</p>
-            <button class="btn btn-primary" (click)="pickUpTicket()">Pick up a ticket!</button>
-        </div>
-    </div>
-    <fxx-footer></fxx-footer>
-</div>
+        <ng-container *ngIf="!(myTicket$ | async)">
+            <fxx-pickup-ticket
+                [isNoTicketToPickUp]="isNoTicketToPickUp$ | async"
+                (pickUpTicket)="pickUpTicket()"
+            ></fxx-pickup-ticket>
+        </ng-container>
+    </ng-container>
+    <ng-container *ngIf="isFetchingMyTicket$ | async">
+        <p class="text-2xl font-bold text-center mt-8">
+            Fetching your ticket...
+        </p>
+    </ng-container>
+</fxx-layout>

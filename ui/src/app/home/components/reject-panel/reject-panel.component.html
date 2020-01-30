@@ -1,0 +1,17 @@
+<form class="py-4 px-8 m-8 bg-gray-400 rounded-lg flex flex-col" [formGroup]="formGroup" (submit)="onReject()">
+    <h3 class="text-2xl mb-4">Reject this ticket</h3>
+    <fxx-select
+        placeholder="Choose a Reason"
+        [options]="rejectReasons"
+        formControlName="reason"
+        [errorDictionary]="errorDictionary"
+        [errors]="reasonErrors"
+    ></fxx-select>
+    <fxx-textbox
+        placeholder="More details"
+        formControlName="details"
+        [errorDictionary]="errorDictionary"
+        [errors]="detailsErrors"
+    ></fxx-textbox>
+    <button class="btn btn-primary mt-2 self-end" type="submit">Reject</button>
+</form>

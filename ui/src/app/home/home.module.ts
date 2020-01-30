@@ -4,9 +4,10 @@ import { SharedModule } from '@shared/shared.module';
 
 import { components } from './components';
 import { HomeRoutingModule } from './home-routing.module';
+import { PickupTicketComponent } from './components/pickup-ticket/pickup-ticket.component';
 
 @NgModule({
-  declarations: [components],
+  declarations: [components, PickupTicketComponent],
   imports: [
     CommonModule,
     SharedModule,

@@ -1,5 +1,4 @@
-<div class="min-h-screen flex flex-col">
-    <fxx-nav-bar></fxx-nav-bar>
+<fxx-layout>
     <div class="flex-grow flex items-center justify-center">
         <form class="w-64 md:w-128 flex flex-col items-stretch p-8 bg-gray-700 shadow-md rounded-lg" [formGroup]="formGroup" (ngSubmit)="onSubmit()">
             <p *ngIf="hasFailedLogin$ | async" class="text-red-500 text-md italic leading-loose">Invalid username/password!</p>
@@ -11,5 +10,4 @@
             </div>
         </form>
     </div>
-    <fxx-footer></fxx-footer>
-</div>
+</fxx-layout>

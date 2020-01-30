@@ -1,0 +1,13 @@
+<div class="py-4 px-8 m-8 bg-gray-400 rounded-lg">
+    <div class="flex justify-between items-baseline">
+        <h1 class="text-4xl">{{ ticket.name }}</h1>
+        <div class="text-2xl ml-4">{{ ticket.price | currency }}</div>
+    </div>
+    <div class="text-lg mt-4">
+        {{ ticket.description }}
+    </div>
+    <h2 class="text-2xl mt-4">It Must:</h2>
+    <ul class="list-disc list-inside">
+        <li *ngFor="let must of ticket.itMust" class="text-lg mt-2">it('{{ must }}')</li>
+    </ul>
+</div>
