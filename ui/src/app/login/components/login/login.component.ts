@@ -27,6 +27,10 @@ export class LoginComponent {
   get passwordErrors() { return this.password.touched ? this.password.errors : null; }
 
   onSubmit() {
-    this.store.dispatch(login({ username: this.username.value, password: this.password.value }));
+    if (this.formGroup.valid) {
+      this.store.dispatch(login({ username: this.username.value, password: this.password.value }));
+    } else {
+      this.formGroup.markAllAsTouched();
+    }
   }
 }

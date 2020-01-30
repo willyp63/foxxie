@@ -1,7 +1,7 @@
 <div class="min-h-screen flex flex-col">
     <fxx-nav-bar></fxx-nav-bar>
     <div class="flex-grow flex items-center justify-center">
-        <form class="w-64 md:w-128 flex flex-col items-stretch p-8 bg-gray-700 shadow-lg" [formGroup]="formGroup" (ngSubmit)="onSubmit()">
+        <form class="w-64 md:w-128 flex flex-col items-stretch p-8 bg-gray-700 shadow-lg rounded-lg" [formGroup]="formGroup" (ngSubmit)="onSubmit()">
             <p *ngIf="hasFailedLogin$ | async" class="text-red-500 text-md italic leading-loose">Invalid username/password!</p>
             <fxx-textfield label="Username" placeholder="Username" formControlName="username" [errorDictionary]="errorDictionary" [errors]="usernameErrors"></fxx-textfield>
             <fxx-textfield type="password" label="Password" placeholder="Password" formControlName="password" [errorDictionary]="errorDictionary" [errors]="passwordErrors"></fxx-textfield>
