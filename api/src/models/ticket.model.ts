@@ -1,6 +1,7 @@
 import { IsNotEmpty } from 'class-validator';
 import { Expose } from 'class-transformer';
-import { ObjectId } from 'mongodb';
+
+import { MongoDoc } from './mongo-doc.model';
 
 export enum TicketStatus {
     Unassigned = 0,
@@ -8,9 +9,7 @@ export enum TicketStatus {
     Done = 2,
 }
 
-export class Ticket {
-    _id: string | ObjectId;
-
+export class Ticket extends MongoDoc {
     @Expose()
     @IsNotEmpty()
     name: string;

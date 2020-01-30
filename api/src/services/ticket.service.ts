@@ -1,107 +1,93 @@
 import { Injectable } from '@nestjs/common';
-
-import { Ticket, TicketStatus } from '../models/ticket';
-import { DatabaseService } from './database.service';
-import { UserService } from './user.service';
 import { ObjectId } from 'mongodb';
+
+import { Ticket, TicketStatus } from '../models/ticket.model';
+import { DatabaseService } from './database.service';
+import { MongoId } from '../models/mongo-doc.model';
 
 @Injectable()
 export class TicketService {
     constructor(
-        private readonly databaseService: DatabaseService,
-        private readonly userService: UserService,
+        private readonly db: DatabaseService,
     ) {}
 
-    add(ticket: Ticket): Promise<Ticket> {
-        return new Promise(resolve => {
-            this.databaseService.getTicketCollection().then(collection => {
-                collection.insertOne({ ...ticket, status: TicketStatus.Unassigned }).then(() => {
-                    resolve(ticket);
-                });
-            });
-        });
+    async add(ticket: Ticket): Promise<Ticket> {
+        const ticketCollection = await this.db.getTicketCollection();
+        const ticketWithStatus = { ...ticket, status: TicketStatus.Unassigned };
+        await ticketCollection.insertOne(ticketWithStatus);
+        return ticketWithStatus;
     }
 
-    getAll(): Promise<Ticket[]> {
-        return new Promise(resolve => {
-            this.databaseService.getTicketCollection().then(collection => {
-                collection.find().toArray().then(tickets => resolve(tickets));
-            });
-        });
+    async getAll(): Promise<Ticket[]> {
+        const ticketCollection = await this.db.getTicketCollection();
+        return ticketCollection.find().toArray();
     }
 
-    pickUpTicket(userId: string): Promise<Ticket> {
-        return new Promise(resolve => {
-            this.getTicketAssignedToUser(userId).then(currentlyAssignedTicket => {
-                if (currentlyAssignedTicket) {
-                    resolve(null)
-                    return;
-                }
-        
-                this.databaseService.getTicketCollection().then(collection => {
-                    collection.find().sort({ priority: 1, name: 1 }).filter({ status: TicketStatus.Unassigned }).toArray().then(unassignedTickets => {
-                        if (unassignedTickets.length > 0) {
-                            const ticket = unassignedTickets[0];
-                            this.userService.assignTicketToUser(ticket._id as string, userId).then(() => {
-                                collection.updateOne(
-                                    { _id: new ObjectId(ticket._id) },
-                                    { $set: { status: TicketStatus.Assigned } },
-                                ).then(() => resolve(ticket));
-                            });
-                        } else {
-                            resolve(null);
-                        }
-                    });
-                });
-            });
-        });
+    async pickUpTicket(userId: MongoId): Promise<Ticket> {
+        // make sure they are not already assigned a ticket
+        const assignedTicket = await this.getTicketAssignedToUser(userId);
+        if (assignedTicket) { return null; }
+
+        // get the highest priority unassigned ticket
+        const ticketCollection = await this.db.getTicketCollection();
+        const unassignedTickets = await ticketCollection.find()
+            .filter({ status: TicketStatus.Unassigned })
+            .sort({ priority: 1, name: 1 })
+            .toArray();
+        const ticketToPickUp = unassignedTickets[0];
+
+        if (!ticketToPickUp) { return null; }
+
+        // assign ticket to user
+        const userCollection = await this.db.getUserCollection();
+        await userCollection.updateOne(
+            { _id: new ObjectId(userId) },
+            { $set: { assignedTicketId: ticketToPickUp._id } },
+        );
+
+        // set ticket status to assigned
+        await ticketCollection.updateOne(
+            { _id: new ObjectId(ticketToPickUp._id) },
+            { $set: { status: TicketStatus.Assigned } },
+        );
+
+        return ticketToPickUp;
     }
 
-    getTicketAssignedToUser(userId: string): Promise<Ticket> {
-        return new Promise(resolve => {
-            this.databaseService.getUserCollection().then(userCollection => {
-                userCollection.findOne({ _id: new ObjectId(userId) }).then(user => {
-                    this.databaseService.getTicketCollection().then(ticketCollection => {
-                        ticketCollection.findOne({ _id: user.assignedTicketId }).then(ticket => {
-                            resolve(ticket);
-                        });
-                    });
-                });
-            });
-        });
+    async getTicketAssignedToUser(userId: MongoId): Promise<Ticket> {
+        const userCollection = await this.db.getUserCollection(); 
+        const ticketCollection = await this.db.getTicketCollection(); 
+
+        const user = await userCollection.findOne({ _id: new ObjectId(userId) });
+        return await ticketCollection.findOne({ _id: user.assignedTicketId });
     }
 
-    unassignTicket(userId: string): Promise<Ticket> {
-        return new Promise(resolve => {
-            this.getTicketAssignedToUser(userId).then(assignedTicket => {
-                if (!assignedTicket) { resolve(null); }
-    
-                this.databaseService.getTicketCollection().then(collection => {
-                    this.userService.unassignTicketFromUser(userId).then(() => {
-                        collection.updateOne(
-                            { _id: new ObjectId(assignedTicket._id) },
-                            { $set: { status: TicketStatus.Unassigned } },
-                        ).then(() => resolve(assignedTicket));
-                    });
-                });
-            });
-        });
+    async unassignTicket(userId: MongoId): Promise<Ticket> {
+        return await this.unassignTicketFromUserAndSetStatus(userId, TicketStatus.Unassigned);
     }
 
-    completeTicket(userId: string): Promise<Ticket> {
-        return new Promise(resolve => {
-            this.getTicketAssignedToUser(userId).then(assignedTicket => {
-                if (!assignedTicket) { resolve(null); }
-    
-                this.databaseService.getTicketCollection().then(collection => {
-                    this.userService.unassignTicketFromUser(userId).then(() => {
-                        collection.updateOne(
-                            { _id: new ObjectId(assignedTicket._id) },
-                            { $set: { status: TicketStatus.Done } },
-                        ).then(() => resolve(assignedTicket));
-                    });
-                });
-            });
-        });
+    async completeTicket(userId: MongoId): Promise<Ticket> {
+        return await this.unassignTicketFromUserAndSetStatus(userId, TicketStatus.Done);
+    }
+
+    private async unassignTicketFromUserAndSetStatus(userId: MongoId, status: TicketStatus) {
+        const assignedTicket = await this.getTicketAssignedToUser(userId);
+        if (assignedTicket) { return null; }
+
+        // unassign ticket from user
+        const userCollection = await this.db.getUserCollection();
+        await userCollection.updateOne(
+            { _id: new ObjectId(userId) },
+            { $set: { assignedTicketId: null } },
+        );
+
+        // set ticket status to unassigned
+        const ticketCollection = await this.db.getTicketCollection();
+        await ticketCollection.updateOne(
+            { _id: new ObjectId(assignedTicket._id) },
+            { $set: { status } },
+        );
+
+        return assignedTicket;
     }
 }

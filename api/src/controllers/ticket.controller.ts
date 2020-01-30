@@ -1,6 +1,6 @@
-import { Controller, Post, Body, Get, BadRequestException, Param, Query } from '@nestjs/common';
+import { Controller, Post, Body, Get, BadRequestException, Query } from '@nestjs/common';
 
-import { Ticket } from '../models/ticket';
+import { Ticket } from '../models/ticket.model';
 import { TicketService } from '../services/ticket.service';
 
 @Controller('tickets')
@@ -14,6 +14,11 @@ export class TicketController {
         return this.ticketService.getAll();
     }
 
+    @Post()
+    addTicket(@Body() ticket: Ticket): Promise<Ticket> {
+        return this.ticketService.add(ticket);
+    }
+
     @Get('mine')
     getMyTicket(@Query() { userId }): Promise<Ticket> {
         // TODO: use token instead of userId and validate
@@ -22,11 +27,6 @@ export class TicketController {
         }
 
         return this.ticketService.getTicketAssignedToUser(userId);
-    }
-
-    @Post()
-    addTicket(@Body() ticket: Ticket): Promise<Ticket> {
-        return this.ticketService.add(ticket);
     }
 
     @Post('pickup')

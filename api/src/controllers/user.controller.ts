@@ -1,7 +1,7 @@
 import { Controller, Post, Body, BadRequestException, HttpCode, Get } from '@nestjs/common';
 
 import { UserService } from '../services/user.service';
-import { User } from '../models/user';
+import { User } from '../models/user.model';
 
 @Controller('users')
 export class UserController {
@@ -23,9 +23,7 @@ export class UserController {
     @HttpCode(200)
     async loginUser(@Body() { username, password }: Partial<User>): Promise<User> {
         const user = await this.userService.getByUsernameAndPassword(username, password);
-        if (!user) {
-            throw new BadRequestException('Invalid credentials');
-        }
+        if (!user) { throw new BadRequestException('Invalid credentials'); }
         return user;
     }
 }

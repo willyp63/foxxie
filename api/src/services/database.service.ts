@@ -1,11 +1,16 @@
 import { Injectable } from '@nestjs/common';
 import { Db, MongoClient, Collection } from 'mongodb';
 
-import { MONGO_URL, DB_NAME } from '../constants/db';
-import { COLLECTION_NAMES } from '../constants/collection-names';
+import { User } from '../models/user.model';
+import { Ticket } from '../models/ticket.model';
 
-import { User } from '../models/user';
-import { Ticket } from '../models/ticket';
+export const DB_NAME = process.env.MONGODB_URI ? '' : 'foxxie';
+export const MONGO_URL = process.env.MONGODB_URI || 'mongodb://localhost:27017';
+
+export const COLLECTION_NAMES = {
+    USER: 'users',
+    TICKET: 'tickets',
+};
 
 @Injectable()
 export class DatabaseService {
@@ -16,10 +21,9 @@ export class DatabaseService {
         });
     });
 
-    getCollection<T>(collectionName: string): Promise<Collection<T>> {
-        return new Promise((resolve) => {
-            this.db.then((db: Db) => resolve(db.collection(collectionName)));
-        });
+    async getCollection<T>(collectionName: string): Promise<Collection<T>> {
+        const db = await this.db;
+        return db.collection(collectionName);
     }
 
     getUserCollection = () => this.getCollection<User>(COLLECTION_NAMES.USER);
