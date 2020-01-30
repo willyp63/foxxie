@@ -1,6 +1,6 @@
 import { Controller, Post, Body, Get, BadRequestException, Query } from '@nestjs/common';
 
-import { Ticket } from '../models/ticket.model';
+import { Ticket, TicketRejection } from '../models/ticket.model';
 import { TicketService } from '../services/ticket.service';
 
 @Controller('tickets')
@@ -40,13 +40,13 @@ export class TicketController {
     }
 
     @Post('reject')
-    rejectTicket(@Query() { userId }): Promise<Ticket> {
+    rejectTicket(@Query() { userId }, @Body() rejection: TicketRejection): Promise<Ticket> {
         // TODO: use token instead of userId and validate
         if (!userId) {
             throw new BadRequestException('userId required');
         }
 
-        return this.ticketService.rejectTicket(userId);
+        return this.ticketService.rejectTicket(userId, rejection);
     }
 
     @Post('complete')

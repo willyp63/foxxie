@@ -1,7 +1,7 @@
 import { Injectable } from '@nestjs/common';
 import { ObjectId } from 'mongodb';
 
-import { Ticket, TicketStatus } from '../models/ticket.model';
+import { Ticket, TicketStatus, TicketRejection } from '../models/ticket.model';
 import { DatabaseService } from './database.service';
 import { MongoId } from '../models/mongo-doc.model';
 
@@ -62,8 +62,17 @@ export class TicketService {
         return await ticketCollection.findOne({ _id: user.assignedTicketId });
     }
 
-    async rejectTicket(userId: MongoId): Promise<Ticket> {
-        return await this.unassignTicketFromUserAndSetStatus(userId, TicketStatus.NotReady);
+    async rejectTicket(userId: MongoId, rejection: TicketRejection): Promise<Ticket> {
+        const ticket = await this.unassignTicketFromUserAndSetStatus(userId, TicketStatus.NotReady);
+
+        // add rejection to ticket
+        const ticketCollection = await this.db.getTicketCollection();
+        await ticketCollection.update(
+            { _id: new ObjectId(ticket._id) },
+            { $push: { rejections: rejection } }
+        );
+
+        return ticket;
     }
 
     async completeTicket(userId: MongoId): Promise<Ticket> {
