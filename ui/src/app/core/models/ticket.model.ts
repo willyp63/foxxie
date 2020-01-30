@@ -4,6 +4,11 @@ export enum TicketStatus {
     Done = 2,
 }
 
+export interface TicketRejection {
+    reason: string;
+    details: number;
+}
+
 export interface Ticket {
     _id: string;
     price: number;

@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { ApiService } from './api.service';
 import { mergeMap } from 'rxjs/operators';
-import { Ticket } from '@core/models/ticket.model';
+import { Ticket, TicketRejection } from '@core/models/ticket.model';
 import { Observable } from 'rxjs';
 
 @Injectable({
@@ -23,6 +23,12 @@ export class TicketService {
   pickUpTicket(): Observable<Ticket> {
     return this.apiService.getUrl('/tickets/pickup').pipe(
       mergeMap(url => this.http.post(url, {}) as Observable<Ticket>),
+    );
+  }
+
+  rejectMyTicket(rejection: TicketRejection): Observable<null> {
+    return this.apiService.getUrl('/tickets/reject').pipe(
+      mergeMap(url => this.http.post(url, rejection) as Observable<null>),
     );
   }
 }

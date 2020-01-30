@@ -39,14 +39,14 @@ export class TicketController {
         return this.ticketService.pickUpTicket(userId);
     }
 
-    @Post('unassign')
-    unassignTicket(@Query() { userId }): Promise<Ticket> {
+    @Post('reject')
+    rejectTicket(@Query() { userId }): Promise<Ticket> {
         // TODO: use token instead of userId and validate
         if (!userId) {
             throw new BadRequestException('userId required');
         }
 
-        return this.ticketService.unassignTicket(userId);
+        return this.ticketService.rejectTicket(userId);
     }
 
     @Post('complete')

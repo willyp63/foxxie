@@ -1,4 +1,4 @@
-<div class="relative w-64">
+<div class="relative w-full">
     <select #select (change)="onChange()" class="select">
         <option *ngIf="placeholder" value="" disabled selected>{{ placeholder }}</option>
         <option *ngFor="let option of options">{{ option }}</option>

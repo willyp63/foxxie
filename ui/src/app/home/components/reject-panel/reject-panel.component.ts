@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { AppState } from '@core/reducers';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
+import { rejectMyTicket } from '@core/actions/ticket.actions';
 
 @Component({
   selector: 'fxx-reject-panel',
@@ -13,7 +14,7 @@ export class RejectPanelComponent {
 
   formGroup = new FormGroup({
     reason: new FormControl(null, [Validators.required]),
-    details: new FormControl('', [Validators.required]),
+    details: new FormControl(''),
   });
 
   errorDictionary = { required: 'Required' };
@@ -33,7 +34,7 @@ export class RejectPanelComponent {
     if (this.formGroup.valid) {
       console.log(this.reason.value);
       console.log(this.details.value);
-      // this.store.dispatch(login({ username: this.username.value, password: this.password.value }));
+      this.store.dispatch(rejectMyTicket({ reason: this.reason.value, details: this.details.value }));
     } else {
       this.formGroup.markAllAsTouched();
     }

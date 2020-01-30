@@ -1,3 +1,3 @@
 <label *ngIf="label" class="text-white text-lg leading-relaxed" [for]="id">{{ label }}</label>
-<textarea #textarea class="textfield resize-none" [rows]="rows" [id]="id" [placeholder]="placeholder" (input)="onChange()"></textarea>
+<textarea #textarea class="textfield resize-none w-full" [rows]="rows" [id]="id" [placeholder]="placeholder" (input)="onChange()"></textarea>
 <p class="text-red-500 text-xs italic leading-loose" [innerHtml]="errorMsg | safe: 'html'"></p>

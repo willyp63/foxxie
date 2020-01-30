@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { Actions, createEffect, ofType } from '@ngrx/effects';
 import { of } from 'rxjs';
 import { map, mergeMap, catchError } from 'rxjs/operators';
-import { fetchMyTicket, receiveMyTicket, pickUpTicket, noTicketToPickUp, failToRecieveMyTicket } from '@core/actions/ticket.actions';
+import { fetchMyTicket, receiveMyTicket, pickUpTicket, noTicketToPickUp, failToRecieveMyTicket, rejectMyTicket, myTicketWasRejected } from '@core/actions/ticket.actions';
 import { TicketService } from '@core/services/ticket.service';
 import { noop } from '@core/actions/noop.actions';
  
@@ -26,6 +26,18 @@ export class TicketEffects {
       mergeMap(() => this.ticketService.pickUpTicket()
         .pipe(
           map(ticket => ticket ? receiveMyTicket(ticket) : noTicketToPickUp()),
+          catchError(() => of(noop() /** TODO */))
+        )
+      )
+    )
+  );
+
+  rejectMyTicket$ = createEffect(() =>
+    this.actions$.pipe(
+      ofType(rejectMyTicket),
+      mergeMap((rejection) => this.ticketService.rejectMyTicket(rejection)
+        .pipe(
+          map(() => myTicketWasRejected()),
           catchError(() => of(noop() /** TODO */))
         )
       )

@@ -13,7 +13,7 @@ export class TicketService {
 
     async add(ticket: Ticket): Promise<Ticket> {
         const ticketCollection = await this.db.getTicketCollection();
-        const ticketWithStatus = { ...ticket, status: TicketStatus.Unassigned };
+        const ticketWithStatus = { ...ticket, status: TicketStatus.Ready };
         await ticketCollection.insertOne(ticketWithStatus);
         return ticketWithStatus;
     }
@@ -28,13 +28,13 @@ export class TicketService {
         const assignedTicket = await this.getTicketAssignedToUser(userId);
         if (assignedTicket) { return null; }
 
-        // get the highest priority unassigned ticket
+        // get the highest priority ticket that is ready
         const ticketCollection = await this.db.getTicketCollection();
-        const unassignedTickets = await ticketCollection.find()
-            .filter({ status: TicketStatus.Unassigned })
+        const readyTickets = await ticketCollection.find()
+            .filter({ status: TicketStatus.Ready })
             .sort({ priority: 1, name: 1 })
             .toArray();
-        const ticketToPickUp = unassignedTickets[0];
+        const ticketToPickUp = readyTickets[0];
 
         if (!ticketToPickUp) { return null; }
 
@@ -62,8 +62,8 @@ export class TicketService {
         return await ticketCollection.findOne({ _id: user.assignedTicketId });
     }
 
-    async unassignTicket(userId: MongoId): Promise<Ticket> {
-        return await this.unassignTicketFromUserAndSetStatus(userId, TicketStatus.Unassigned);
+    async rejectTicket(userId: MongoId): Promise<Ticket> {
+        return await this.unassignTicketFromUserAndSetStatus(userId, TicketStatus.NotReady);
     }
 
     async completeTicket(userId: MongoId): Promise<Ticket> {
@@ -72,7 +72,7 @@ export class TicketService {
 
     private async unassignTicketFromUserAndSetStatus(userId: MongoId, status: TicketStatus) {
         const assignedTicket = await this.getTicketAssignedToUser(userId);
-        if (assignedTicket) { return null; }
+        if (!assignedTicket) { return null; }
 
         // unassign ticket from user
         const userCollection = await this.db.getUserCollection();
