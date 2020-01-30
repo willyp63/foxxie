@@ -5,7 +5,10 @@
             <p *ngIf="hasFailedLogin$ | async" class="text-red-500 text-md italic leading-loose">Invalid username/password!</p>
             <fxx-textfield label="Username" placeholder="Username" formControlName="username" [errorDictionary]="errorDictionary" [errors]="usernameErrors"></fxx-textfield>
             <fxx-textfield type="password" label="Password" placeholder="Password" formControlName="password" [errorDictionary]="errorDictionary" [errors]="passwordErrors"></fxx-textfield>
-            <button type="submit" class="btn btn-blue mt-4 self-end">Sign In</button>
+            <div class="mt-4 flex justify-between items-end">
+                <a routerLink="/login" routerLinkActive="active" class="link">Forgot Password?</a>
+                <button type="submit" class="btn btn-primary">Sign In</button>
+            </div>
         </form>
     </div>
 </div>

@@ -10,13 +10,27 @@ body, html {
 
 /** Buttons */
 .btn {
-    @apply font-bold py-2 px-4 rounded;
+    @apply font-bold py-2 px-4 rounded-md;
 }
-.btn-blue {
+.btn:focus {
+    @apply outline-none shadow-focus;
+}  
+.btn-primary {
     @apply bg-blue-500 text-white;
 }
-.btn-blue:hover {
+.btn-primary:hover {
     @apply bg-blue-700;
+}
+
+/** Links */
+.link {
+    @apply inline-block align-baseline font-bold text-sm text-blue-500 rounded-md;
+}
+.link:focus {
+    @apply outline-none shadow-focus;
+}  
+.link:hover {
+    @apply text-blue-700;
 }
 
 /** Forms */
@@ -24,5 +38,5 @@ body, html {
     @apply bg-white border border-gray-300 rounded-lg py-2 px-4 block w-full appearance-none leading-normal;
 }
 .textfield:focus {
-    @apply outline-none shadow-outline;
+    @apply outline-none shadow-focus;
 }   

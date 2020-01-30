@@ -15,6 +15,6 @@
     </div>
     <div *ngIf="!(myTicket$ | async)" class="flex flex-col items-center pt-8">
         <p *ngIf="isNoTicketToPickUp$ | async" class="text-center text-xl text-red-500 font-bold text-center mb-8">There are no tickets to pick up right now.</p>
-        <button class="btn btn-blue" (click)="pickUpTicket()">Pick up a ticket!</button>
+        <button class="btn btn-primary" (click)="pickUpTicket()">Pick up a ticket!</button>
     </div>
 </div>

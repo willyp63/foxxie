@@ -23,6 +23,16 @@ module.exports = {
         onyx: '#3D2B3D',
       },
     },
+    boxShadow: {
+      'sm': '0 1px 3px rgba(0,0,0,0.12), 0 1px 2px rgba(0,0,0,0.24)',
+      'md': '0 14px 28px rgba(0,0,0,0.25), 0 10px 10px rgba(0,0,0,0.22)',
+      'lg': '0 3px 6px rgba(0,0,0,0.16), 0 3px 6px rgba(0,0,0,0.23)',
+      'xl': '0 10px 20px rgba(0,0,0,0.19), 0 6px 6px rgba(0,0,0,0.23)',
+      '2xl': '0 14px 28px rgba(0,0,0,0.25), 0 10px 10px rgba(0,0,0,0.22)',
+      '3xl': '0 19px 38px rgba(0,0,0,0.30), 0 15px 12px rgba(0,0,0,0.22)',
+      'focus': '0 0 0 4px rgba(66,153,225,0.5)',
+      'none': 'none',
+    },
     spacing: {
       '0': '0',
       '1': '0.25rem',
@@ -44,6 +54,13 @@ module.exports = {
       '64': '16rem',
       '128': '32rem',
       '256': '64rem',
+    },
+    borderRadius: {
+      'none': '0',
+      'sm': '.125rem',
+      'md': '.25rem',
+      'lg': '.5rem',
+      'full': '9999px',
     },
     maxWidth: {
       '1/4': '25%',
