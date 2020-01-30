@@ -1,20 +1,23 @@
-<fxx-nav-bar></fxx-nav-bar>
-<div *ngIf="!(isFetchingMyTicket$ | async)">
-    <div *ngIf="myTicket$ | async as myTicket" class="py-4 px-8 m-8 lg:max-w-3/4 xl:max-w-1/2 bg-gray-400 rounded-lg">
-        <div class="flex justify-between items-baseline">
-            <h1 class="text-4xl">{{ myTicket.name }}</h1>
-            <div class="text-2xl ml-4">{{ myTicket.price | currency }}</div>
+<div class="min-h-screen flex flex-col">
+    <fxx-nav-bar></fxx-nav-bar>
+    <div *ngIf="!(isFetchingMyTicket$ | async)" class="flex-grow">
+        <div *ngIf="myTicket$ | async as myTicket" class="py-4 px-8 m-8 lg:max-w-3/4 xl:max-w-1/2 bg-gray-400 rounded-lg">
+            <div class="flex justify-between items-baseline">
+                <h1 class="text-4xl">{{ myTicket.name }}</h1>
+                <div class="text-2xl ml-4">{{ myTicket.price | currency }}</div>
+            </div>
+            <div class="text-lg mt-4">
+                {{ myTicket.description }}
+            </div>
+            <h2 class="text-2xl mt-4">It Must:</h2>
+            <ul class="list-disc list-inside">
+                <li *ngFor="let must of myTicket.itMust" class="text-lg mt-2">it('{{ must }}')</li>
+            </ul>
         </div>
-        <div class="text-lg mt-4">
-            {{ myTicket.description }}
+        <div *ngIf="!(myTicket$ | async)" class="flex flex-col items-center pt-8">
+            <p *ngIf="isNoTicketToPickUp$ | async" class="text-center text-xl text-red-500 font-bold text-center mb-8">There are no tickets to pick up right now.</p>
+            <button class="btn btn-primary" (click)="pickUpTicket()">Pick up a ticket!</button>
         </div>
-        <h2 class="text-2xl mt-4">It Must:</h2>
-        <ul class="list-disc list-inside">
-            <li *ngFor="let must of myTicket.itMust" class="text-lg mt-2">it('{{ must }}')</li>
-        </ul>
     </div>
-    <div *ngIf="!(myTicket$ | async)" class="flex flex-col items-center pt-8">
-        <p *ngIf="isNoTicketToPickUp$ | async" class="text-center text-xl text-red-500 font-bold text-center mb-8">There are no tickets to pick up right now.</p>
-        <button class="btn btn-primary" (click)="pickUpTicket()">Pick up a ticket!</button>
-    </div>
+    <fxx-footer></fxx-footer>
 </div>
