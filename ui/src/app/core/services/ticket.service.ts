@@ -31,4 +31,10 @@ export class TicketService {
       mergeMap(url => this.http.post(url, rejection) as Observable<null>),
     );
   }
+
+  fetchAllTickets(): Observable<Ticket[]> {
+    return this.apiService.getUrl('/tickets').pipe(
+      mergeMap(url => this.http.get(url) as Observable<Ticket[]>),
+    );
+  }
 }

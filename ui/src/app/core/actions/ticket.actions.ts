@@ -30,3 +30,12 @@ export const rejectMyTicket = createAction(
 export const myTicketWasRejected = createAction(
     '[Ticket] My Ticket Was Rejected',
 );
+
+export const fetchAllTickets = createAction(
+    '[Ticket] Fetch All Tickets',
+);
+
+export const receiveAllTickets = createAction(
+    '[Ticket] Receive All Tickets',
+    props<{ tickets: Ticket[] }>(),
+);

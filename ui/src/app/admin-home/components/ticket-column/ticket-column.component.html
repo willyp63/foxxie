@@ -1,0 +1,10 @@
+<div class="m-2 h-full py-4 px-8 bg-gray-400 rounded-lg">
+    <h2 class="text-3xl mb-4 underline">{{ title }}</h2>
+    <ul>
+        <li *ngFor="let ticket of tickets" class="py-4 px-8 mb-4 bg-white rounded-lg">
+            <div class="text-xl font-bold">{{ ticket.name }}</div>
+            <div class="text-lg">price: {{ ticket.price | currency }}</div>
+            <div class="text-lg">priority: {{ ticket.priority }}</div>
+        </li>
+    </ul>
+</div>

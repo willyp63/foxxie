@@ -23,5 +23,7 @@ export const hasFailedLogin = createSelector(getAuthState, auth.hasFailedLogin);
 
 export const getTicketState = (state: AppState) => state.tickets;
 export const getMyTicket = createSelector(getTicketState, tickets.getMyTicket);
+export const getAllTickets = createSelector(getTicketState, tickets.getAllTickets);
+export const getAllTicketsWithStatus = createSelector(getTicketState, tickets.getAllTicketsWithStatus);
 export const isFetchingMyTicket = createSelector(getTicketState, tickets.isFetchingMyTicket);
 export const isNoTicketToPickUp = createSelector(getTicketState, tickets.isNoTicketToPickUp);

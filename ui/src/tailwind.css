@@ -26,6 +26,9 @@ body, html {
 .link {
     @apply inline-block align-baseline font-bold text-sm text-blue-500 rounded-md;
 }
+.link-lg {
+    @apply text-lg;
+}
 .link:hover {
     @apply text-blue-700;
 }

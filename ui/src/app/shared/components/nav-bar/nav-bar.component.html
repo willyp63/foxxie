@@ -3,7 +3,10 @@
         <div *ngIf="isLoggedIn$ | async" class="text-lg font-bold">{{ username$ | async }}</div>
         <button *ngIf="isLoggedIn$ | async" class="link" (click)="logout()">logout</button>
     </div>
-    <a routerLink="/" routerLinkActive="active" class="link">
-        <img class="flex-initial w-16 h-16" src="assets/foxxie.png" />
-    </a>
+    <div class="flex items-center">
+        <a *ngIf="isLoggedIn$ | async" routerLink="/admin" routerLinkActive="active" class="link link-lg mr-8 mt-4">Admin</a>
+        <a routerLink="/" routerLinkActive="active" class="link">
+            <img class="flex-initial w-16 h-16" src="assets/foxxie.png" />
+        </a>
+    </div>
 </div>

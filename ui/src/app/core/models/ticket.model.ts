@@ -1,7 +1,8 @@
 export enum TicketStatus {
-    Unassigned = 0,
-    Assigned = 1,
-    Done = 2,
+    NotReady = 'NotReady',
+    Ready = 'Ready',
+    Assigned = 'Assigned',
+    Done = 'Done',
 }
 
 export interface TicketRejection {
