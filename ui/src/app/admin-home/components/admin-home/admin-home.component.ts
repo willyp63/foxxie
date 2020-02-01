@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { AppState, getAllTicketsWithStatus, getAllTickets } from '@core/reducers';
 import { fetchAllTickets } from '@core/actions/ticket.actions';
-import { TicketStatus } from '@core/models/ticket.model';
+import { TicketStatus, Ticket } from '@core/models/ticket.model';
 
 @Component({
   selector: 'fxx-admin-home',

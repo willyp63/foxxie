@@ -19,6 +19,7 @@ export class TextfieldComponent implements ControlValueAccessor {
   @Input() type: string = 'text';
   @Input() placeholder: string = '';
   @Input() label: string = '';
+  @Input() lightLabel: boolean = false;
   @Input() errorDictionary: { [errorName: string]: string } = {};
   @Input() errors: { [errorName: string]: string };
 
@@ -34,6 +35,8 @@ export class TextfieldComponent implements ControlValueAccessor {
     Object.keys(this.errors).forEach(errorName => msgs.push(this.errorDictionary[errorName] || errorName));
     return msgs.join('<br>');
   }
+
+  get textColorClass() { return this.lightLabel ? 'text-white' : 'text-black'; }
 
   onChange() {
     this.onChangeFn(this.inputEl.nativeElement.value);

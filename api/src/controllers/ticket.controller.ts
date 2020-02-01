@@ -1,7 +1,8 @@
-import { Controller, Post, Body, Get, BadRequestException, Query } from '@nestjs/common';
+import { Controller, Post, Body, Get, BadRequestException, Query, Param } from '@nestjs/common';
 
 import { Ticket, TicketRejection } from '../models/ticket.model';
 import { TicketService } from '../services/ticket.service';
+import { MongoId } from 'src/models/mongo-doc.model';
 
 @Controller('tickets')
 export class TicketController {
@@ -27,6 +28,11 @@ export class TicketController {
         }
 
         return this.ticketService.getTicketAssignedToUser(userId);
+    }
+
+    @Get(':id')
+    getTicket(@Param('id') ticketId: MongoId): Promise<Ticket> {
+        return this.ticketService.getById(ticketId);
     }
 
     @Post('pickup')
@@ -57,5 +63,12 @@ export class TicketController {
         }
 
         return this.ticketService.completeTicket(userId);
+    }
+
+    @Post(':id')
+    updateTicket(@Param('id') ticketId: MongoId, @Body() ticket: Ticket): Promise<null> {
+        console.log(ticketId);
+        console.log(ticket);
+        return this.ticketService.updateTicket(ticketId, ticket);
     }
 }

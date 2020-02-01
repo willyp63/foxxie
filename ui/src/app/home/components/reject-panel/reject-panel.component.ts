@@ -32,8 +32,6 @@ export class RejectPanelComponent {
 
   onReject() {
     if (this.formGroup.valid) {
-      console.log(this.reason.value);
-      console.log(this.details.value);
       this.store.dispatch(rejectMyTicket({ reason: this.reason.value, details: this.details.value }));
     } else {
       this.formGroup.markAllAsTouched();

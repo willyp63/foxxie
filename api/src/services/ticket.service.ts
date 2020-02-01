@@ -1,4 +1,4 @@
-import { Injectable } from '@nestjs/common';
+import { Injectable, BadRequestException } from '@nestjs/common';
 import { ObjectId } from 'mongodb';
 
 import { Ticket, TicketStatus, TicketRejection } from '../models/ticket.model';
@@ -20,7 +20,21 @@ export class TicketService {
 
     async getAll(): Promise<Ticket[]> {
         const ticketCollection = await this.db.getTicketCollection();
-        return ticketCollection.find().toArray();
+        return ticketCollection.find().sort({ priority: 1, name: 1 }).toArray();
+    }
+
+    async getById(ticketId: MongoId): Promise<Ticket> {
+        const ticketCollection = await this.db.getTicketCollection();
+        return ticketCollection.findOne({ _id: new ObjectId(ticketId) });
+    }
+
+    async updateTicket(ticketId: MongoId, ticket: Ticket): Promise<null> {
+        const ticketCollection = await this.db.getTicketCollection();
+        await ticketCollection.updateOne(
+            { _id: new ObjectId(ticketId) },
+            { $set: ticket },
+        );
+        return null;
     }
 
     async pickUpTicket(userId: MongoId): Promise<Ticket> {

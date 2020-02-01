@@ -20,6 +20,11 @@ const routes: Routes = [
     loadChildren: () => import('./admin-home/admin-home.module').then(m => m.AdminHomeModule)
   },
   {
+    path: 'admin/:ticketId',
+    canActivate: [AuthGuard],
+    loadChildren: () => import('./admin-ticket-edit/admin-ticket-edit.module').then(m => m.AdminTicketEditModule)
+  },
+  {
     path: '404',
     loadChildren: () => import('./page-not-found/page-not-found.module').then(m => m.PageNotFoundModule)
   },

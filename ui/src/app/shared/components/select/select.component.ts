@@ -14,12 +14,16 @@ import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
   ],
 })
 export class SelectComponent implements ControlValueAccessor {
+  @Input() label: string = '';
+  @Input() lightLabel: boolean = false;
   @Input() placeholder: string = '';
   @Input() options: string[];
   @Input() errorDictionary: { [errorName: string]: string } = {};
   @Input() errors: { [errorName: string]: string };
 
   @ViewChild('select' , { static: true }) selectEl: ElementRef;
+
+  value: string;
 
   onChangeFn: any;
   onTouchedFn: any;
@@ -32,13 +36,17 @@ export class SelectComponent implements ControlValueAccessor {
     return msgs.join('<br>');
   }
 
+  get textColorClass() { return this.lightLabel ? 'text-white' : 'text-black'; }
+
   onChange() {
-    this.onChangeFn(this.selectEl.nativeElement.value);
+    this.value = this.selectEl.nativeElement.value;
+
+    this.onChangeFn(this.value);
     this.onTouchedFn();
   }
 
   writeValue(value: string): void {
-    this.selectEl.nativeElement.value = value;
+    this.value = value;
   }
   registerOnChange(fn: any): void {
     this.onChangeFn = fn;

@@ -2,8 +2,8 @@
     <div class="flex-grow flex items-center justify-center">
         <form class="w-64 md:w-128 flex flex-col items-stretch p-8 bg-gray-700 shadow-md rounded-lg" [formGroup]="formGroup" (ngSubmit)="onSubmit()">
             <p *ngIf="hasFailedLogin$ | async" class="text-red-500 text-md italic leading-loose">Invalid username/password!</p>
-            <fxx-textfield label="Username" placeholder="Username" formControlName="username" [errorDictionary]="errorDictionary" [errors]="usernameErrors"></fxx-textfield>
-            <fxx-textfield type="password" label="Password" placeholder="Password" formControlName="password" [errorDictionary]="errorDictionary" [errors]="passwordErrors"></fxx-textfield>
+            <fxx-textfield label="Username" [lightLabel]="true" placeholder="Username" formControlName="username" [errorDictionary]="errorDictionary" [errors]="usernameErrors"></fxx-textfield>
+            <fxx-textfield type="password" label="Password" [lightLabel]="true" placeholder="Password" formControlName="password" [errorDictionary]="errorDictionary" [errors]="passwordErrors"></fxx-textfield>
             <div class="mt-4 flex justify-between items-end">
                 <a routerLink="/login" routerLinkActive="active" class="link">Forgot Password?</a>
                 <button type="submit" class="btn btn-primary">Sign In</button>

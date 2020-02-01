@@ -10,7 +10,7 @@ body, html {
 
 /** Buttons */
 .btn {
-    @apply font-bold py-2 px-4 rounded-md;
+    @apply font-bold py-2 px-4 rounded-md inline-flex items-center;
 }
 .btn:focus {
     @apply outline-none shadow-focus;
@@ -20,6 +20,9 @@ body, html {
 }
 .btn-primary:hover {
     @apply bg-blue-700;
+}
+.btn-icon {
+    @apply fill-current w-4 h-4 mr-2;
 }
 
 /** Links */

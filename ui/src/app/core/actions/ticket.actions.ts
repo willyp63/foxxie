@@ -39,3 +39,23 @@ export const receiveAllTickets = createAction(
     '[Ticket] Receive All Tickets',
     props<{ tickets: Ticket[] }>(),
 );
+
+export const fetchTicket = createAction(
+    '[Ticket] Fetch Ticket',
+    props<{ ticketId: string }>(),
+);
+
+export const receiveTicket = createAction(
+    '[Ticket] Receive Ticket',
+    props<Ticket>(),
+);
+
+export const updateTicket = createAction(
+    '[Ticket] Update Ticket',
+    props<Ticket>(),
+);
+
+export const updateTicketSuccess = createAction(
+    '[Ticket] Update Ticket Success',
+    props<Ticket>(),
+);

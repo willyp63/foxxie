@@ -1,10 +1,16 @@
-<div class="m-2 h-full py-4 px-8 bg-gray-400 rounded-lg">
+<div class="m-2 h-full py-4 px-6 bg-gray-400 rounded-lg">
     <h2 class="text-3xl mb-4 underline">{{ title }}</h2>
     <ul>
-        <li *ngFor="let ticket of tickets" class="py-4 px-8 mb-4 bg-white rounded-lg">
-            <div class="text-xl font-bold">{{ ticket.name }}</div>
-            <div class="text-lg">price: {{ ticket.price | currency }}</div>
-            <div class="text-lg">priority: {{ ticket.priority }}</div>
+        <li *ngFor="let ticket of tickets" class="py-4 px-6 mb-4 bg-white rounded-lg flex flex-col">
+            <div class="text-xl font-bold mb-2">{{ ticket.name }}</div>
+            <div class="text-lg mb-1">price: {{ ticket.price | currency }}</div>
+            <div class="text-lg mb-2">priority: {{ ticket.priority }}</div>
+            <a class="btn btn-primary self-end" [routerLink]="['/admin', ticket._id]" routerLinkActive="active">
+                <svg class="btn-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="24px" height="24px">
+                    <path d="M 18 2 L 15.585938 4.4140625 L 19.585938 8.4140625 L 22 6 L 18 2 z M 14.076172 5.9238281 L 3 17 L 3 21 L 7 21 L 18.076172 9.9238281 L 14.076172 5.9238281 z"/>
+                </svg>
+                <span>Edit</span>
+            </a>
         </li>
     </ul>
 </div>

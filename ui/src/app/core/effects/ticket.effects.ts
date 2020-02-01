@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { Actions, createEffect, ofType } from '@ngrx/effects';
 import { of } from 'rxjs';
 import { map, mergeMap, catchError } from 'rxjs/operators';
-import { fetchMyTicket, receiveMyTicket, pickUpTicket, noTicketToPickUp, failToRecieveMyTicket, rejectMyTicket, myTicketWasRejected, fetchAllTickets, receiveAllTickets } from '@core/actions/ticket.actions';
+import { fetchMyTicket, receiveMyTicket, pickUpTicket, noTicketToPickUp, failToRecieveMyTicket, rejectMyTicket, myTicketWasRejected, fetchAllTickets, receiveAllTickets, fetchTicket, receiveTicket, updateTicket, updateTicketSuccess } from '@core/actions/ticket.actions';
 import { TicketService } from '@core/services/ticket.service';
 import { noop } from '@core/actions/noop.actions';
  
@@ -50,6 +50,30 @@ export class TicketEffects {
       mergeMap(() => this.ticketService.fetchAllTickets()
         .pipe(
           map((tickets) => receiveAllTickets({ tickets })),
+          catchError(() => of(noop() /** TODO */))
+        )
+      )
+    )
+  );
+
+  rejectTicket$ = createEffect(() =>
+    this.actions$.pipe(
+      ofType(fetchTicket),
+      mergeMap(({ ticketId }) => this.ticketService.fetchTicket(ticketId)
+        .pipe(
+          map((ticket) => receiveTicket(ticket)),
+          catchError(() => of(noop() /** TODO */))
+        )
+      )
+    )
+  );
+
+  updateTicket$ = createEffect(() =>
+    this.actions$.pipe(
+      ofType(updateTicket),
+      mergeMap((ticket) => this.ticketService.updateTicket(ticket)
+        .pipe(
+          map(() => updateTicketSuccess(ticket)),
           catchError(() => of(noop() /** TODO */))
         )
       )

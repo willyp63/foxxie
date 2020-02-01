@@ -7,7 +7,7 @@
             <fxx-ticket-column title="Ready" [tickets]="readyTickets"></fxx-ticket-column>
         </div>
         <div *ngIf="assignedTickets$ | async as assignedTickets" class="lg:w-1/4">
-            <fxx-ticket-column title="In Progress" [tickets]="assignedTickets"></fxx-ticket-column>
+            <fxx-ticket-column title="Assigned" [tickets]="assignedTickets"></fxx-ticket-column>
         </div>
         <div *ngIf="doneTickets$ | async as doneTickets" class="lg:w-1/4">
             <fxx-ticket-column title="Done" [tickets]="doneTickets"></fxx-ticket-column>

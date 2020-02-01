@@ -1,6 +1,6 @@
 import { Action, createReducer, on } from '@ngrx/store';
 import { Ticket, TicketStatus } from '@core/models/ticket.model';
-import { receiveMyTicket, noTicketToPickUp, pickUpTicket, fetchMyTicket, failToRecieveMyTicket, rejectMyTicket, myTicketWasRejected, fetchAllTickets, receiveAllTickets } from '@core/actions/ticket.actions';
+import { receiveMyTicket, noTicketToPickUp, pickUpTicket, fetchMyTicket, failToRecieveMyTicket, rejectMyTicket, myTicketWasRejected, fetchAllTickets, receiveAllTickets, fetchTicket, receiveTicket, updateTicket, updateTicketSuccess } from '@core/actions/ticket.actions';
 import { logout } from '@core/actions/auth.actions';
 
 export interface State {
@@ -9,6 +9,8 @@ export interface State {
     isFetchingMyTicket: boolean;
     isRejectingMyTicket: boolean;
     allTickets: Ticket[];
+    ticket: Ticket;
+    isTicketUpdating: boolean;
 };
 
 export const initialState: State = {
@@ -17,6 +19,8 @@ export const initialState: State = {
     isFetchingMyTicket: false,
     isRejectingMyTicket: false,
     allTickets: null,
+    ticket: null,
+    isTicketUpdating: false,
 };
 
 const ticketsReducer = createReducer(
@@ -30,6 +34,10 @@ const ticketsReducer = createReducer(
     on(myTicketWasRejected, (state) => ({ ...state, isRejectingMyTicket: false, myTicket: null })),
     on(fetchAllTickets, (state) => ({ ...state, allTickets: null })),
     on(receiveAllTickets, (state, { tickets }) => ({ ...state, allTickets: tickets })),
+    on(fetchTicket, (state) => ({ ...state, ticket: null })),
+    on(receiveTicket, (state, ticket) => ({ ...state, ticket: ticket })),
+    on(updateTicket, (state, ticket) => ({ ...state, isTicketUpdating: true })),
+    on(updateTicketSuccess, (state, ticket) => ({ ...state, isTicketUpdating: false, ticket: ticket })),
     on(logout, () => initialState),
 );
 
@@ -45,3 +53,6 @@ export const getAllTickets = (state: State) => state.allTickets;
 export const getAllTicketsWithStatus = (state: State, props) => state.allTickets
     ? state.allTickets.filter(ticket => ticket.status === props.status)
     : null;
+
+export const getTicket = (state: State) => state.ticket;
+export const isTicketUpdating = (state: State) => state.isTicketUpdating;
