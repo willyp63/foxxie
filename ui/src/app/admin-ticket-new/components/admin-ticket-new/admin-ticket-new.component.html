@@ -2,8 +2,8 @@
     <div class="my-6 mx-10 mb-0 flex">
         <a class="link" routerLink="/admin" routerLinkActive="active">Back</a>
     </div>
-    <form *ngIf="ticket$ | async" class="py-4 px-8 m-8 mt-6 bg-gray-400 rounded-lg flex flex-col" [formGroup]="formGroup" (submit)="onSave()">
-        <h3 class="text-2xl mb-4">Edit Ticket</h3>
+    <form class="py-4 px-8 m-8 mt-6 bg-gray-400 rounded-lg flex flex-col" [formGroup]="formGroup" (submit)="onSave()">
+        <h3 class="text-2xl mb-4">New Ticket</h3>
         <fxx-textfield
             label="Name"
             formControlName="name"

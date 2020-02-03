@@ -20,6 +20,11 @@ const routes: Routes = [
     loadChildren: () => import('./admin-home/admin-home.module').then(m => m.AdminHomeModule)
   },
   {
+    path: 'admin/new',
+    canActivate: [AuthGuard],
+    loadChildren: () => import('./admin-ticket-new/admin-ticket-new.module').then(m => m.AdminTicketNewModule)
+  },
+  {
     path: 'admin/:ticketId',
     canActivate: [AuthGuard],
     loadChildren: () => import('./admin-ticket-edit/admin-ticket-edit.module').then(m => m.AdminTicketEditModule)

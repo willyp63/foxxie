@@ -1,4 +1,4 @@
-import { Injectable, BadRequestException } from '@nestjs/common';
+import { Injectable } from '@nestjs/common';
 import { ObjectId } from 'mongodb';
 
 import { Ticket, TicketStatus, TicketRejection } from '../models/ticket.model';
@@ -13,9 +13,8 @@ export class TicketService {
 
     async add(ticket: Ticket): Promise<Ticket> {
         const ticketCollection = await this.db.getTicketCollection();
-        const ticketWithStatus = { ...ticket, status: TicketStatus.Ready };
-        await ticketCollection.insertOne(ticketWithStatus);
-        return ticketWithStatus;
+        await ticketCollection.insertOne(ticket);
+        return ticket;
     }
 
     async getAll(): Promise<Ticket[]> {

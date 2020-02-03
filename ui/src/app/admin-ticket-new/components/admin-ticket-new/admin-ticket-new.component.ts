@@ -1,22 +1,18 @@
-import { Component, OnInit } from '@angular/core';
-import { FormGroup, FormControl, Validators } from '@angular/forms';
+import { Component } from '@angular/core';
 import { Store } from '@ngrx/store';
-import { AppState, getTicket, isTicketSaving } from '@core/reducers';
-import { ActivatedRoute, ParamMap, Router } from '@angular/router';
-import { take } from 'rxjs/operators';
-import { fetchTicket, updateTicket } from '@core/actions/ticket.actions';
-import { Ticket, TicketStatus } from '@core/models/ticket.model';
+import { AppState, isTicketSaving } from '@core/reducers';
+import { Router } from '@angular/router';
+import { FormGroup, FormControl, Validators } from '@angular/forms';
+import { TicketStatus } from '@core/models/ticket.model';
+import { createNewTicket } from '@core/actions/ticket.actions';
 
 @Component({
-  selector: 'fxx-admin-ticket-edit',
-  templateUrl: './admin-ticket-edit.component.html',
-  styleUrls: ['./admin-ticket-edit.component.scss']
+  selector: 'fxx-admin-ticket-new',
+  templateUrl: './admin-ticket-new.component.html',
+  styleUrls: ['./admin-ticket-new.component.scss']
 })
-export class AdminTicketEditComponent implements OnInit {
-  ticket$ = this.store.select(getTicket);
-
+export class AdminTicketNewComponent {
   constructor(
-    private route: ActivatedRoute,
     private store: Store<AppState>,
     private router: Router,
   ) {}
@@ -24,12 +20,12 @@ export class AdminTicketEditComponent implements OnInit {
   ticketId: string;
 
   formGroup = new FormGroup({
-    name: new FormControl(null, [Validators.required]),
-    price: new FormControl(null, [Validators.required]),
-    priority: new FormControl(null, [Validators.required]),
-    description: new FormControl(null),
-    status: new FormControl(null, [Validators.required]),
-    itMust: new FormControl(null),
+    name: new FormControl('', [Validators.required]),
+    price: new FormControl('', [Validators.required]),
+    priority: new FormControl('', [Validators.required]),
+    description: new FormControl(''),
+    status: new FormControl(TicketStatus.NotReady, [Validators.required]),
+    itMust: new FormControl(''),
   });
 
   errorDictionary = { required: 'Required' };
@@ -55,29 +51,9 @@ export class AdminTicketEditComponent implements OnInit {
   get statusErrors() { return this.status.touched ? this.status.errors : null; }
   get itMustErrors() { return this.itMust.touched ? this.itMust.errors : null; }
 
-  ngOnInit() {
-    // TODO: unsubscribe
-    this.route.paramMap.pipe(take(1)).subscribe((params: ParamMap) => {
-      this.ticketId = params.get('ticketId');
-      this.store.dispatch(fetchTicket({ ticketId: this.ticketId }));
-    });
-
-    // TODO: unsubscribe
-    this.ticket$.subscribe((ticket: Ticket) => {
-      if (!ticket) { return; }
-
-      this.name.setValue(ticket.name);
-      this.price.setValue(ticket.price);
-      this.priority.setValue(ticket.priority);
-      this.status.setValue(ticket.status);
-      this.description.setValue(ticket.description);
-      this.itMust.setValue(ticket.itMust.join('\n'));
-    });
-  }
-
   onSave() {
     if (this.formGroup.valid) {
-      this.store.dispatch(updateTicket({
+      this.store.dispatch(createNewTicket({
         _id: this.ticketId,
         name: this.name.value,
         price: this.price.value,

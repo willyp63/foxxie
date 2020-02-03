@@ -1,5 +1,8 @@
 <fxx-layout>
-    <div class="m-8 lg:flex lg:justify-between lg:items-stretch">
+    <div class="my-6 mx-10 mb-0 flex justify-end">
+        <a class="btn btn-primary" routerLink="/admin/new" routerLinkActive="active">New Ticket</a>
+    </div>
+    <div class="m-8 mt-4 lg:flex lg:justify-between lg:items-stretch">
         <div *ngIf="notReadyTickets$ | async as notReadyTickets" class="lg:w-1/4">
             <fxx-ticket-column title="Not Ready" [tickets]="notReadyTickets"></fxx-ticket-column>
         </div>

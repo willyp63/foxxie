@@ -55,7 +55,12 @@ export const updateTicket = createAction(
     props<Ticket>(),
 );
 
-export const updateTicketSuccess = createAction(
-    '[Ticket] Update Ticket Success',
+export const createNewTicket = createAction(
+    '[Ticket] Create New Ticket',
+    props<Ticket>(),
+);
+
+export const saveTicketSuccess = createAction(
+    '[Ticket] Save Ticket Success',
     props<Ticket>(),
 );
