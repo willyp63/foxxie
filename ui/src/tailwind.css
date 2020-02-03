@@ -16,7 +16,7 @@ body, html {
     @apply outline-none shadow-focus;
 }  
 .btn-icon {
-    @apply fill-current w-4 h-4 mr-2;
+    @apply fill-current w-4 h-4 my-2;
 }
 .btn-primary {
     @apply bg-blue-500 text-white;
