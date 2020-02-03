@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import { Component, Input, Output, EventEmitter } from '@angular/core';
 import { Ticket } from '@core/models/ticket.model';
 
 @Component({
@@ -9,4 +9,6 @@ import { Ticket } from '@core/models/ticket.model';
 export class TicketColumnComponent {
   @Input() title: string;
   @Input() tickets: Ticket[];
+
+  @Output() delete: EventEmitter<Ticket> = new EventEmitter<Ticket>();
 }

@@ -34,12 +34,7 @@ export class AdminTicketEditComponent implements OnInit {
 
   errorDictionary = { required: 'Required' };
 
-  statuses = [
-    TicketStatus.NotReady,
-    TicketStatus.Ready,
-    TicketStatus.Assigned,
-    TicketStatus.Done,
-  ];
+  statuses = [];
 
   get name() { return this.formGroup.get('name') }
   get price() { return this.formGroup.get('price') }
@@ -65,6 +60,19 @@ export class AdminTicketEditComponent implements OnInit {
     // TODO: unsubscribe
     this.ticket$.subscribe((ticket: Ticket) => {
       if (!ticket) { return; }
+
+      this.statuses = ticket.status === TicketStatus.Assigned
+        ? [
+            TicketStatus.NotReady,
+            TicketStatus.Ready,
+            TicketStatus.Assigned,
+            TicketStatus.Done,
+          ]
+        : [
+            TicketStatus.NotReady,
+            TicketStatus.Ready,
+            TicketStatus.Done,
+          ];
 
       this.name.setValue(ticket.name);
       this.price.setValue(ticket.price);

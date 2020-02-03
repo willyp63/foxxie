@@ -1,6 +1,6 @@
 import { Action, createReducer, on } from '@ngrx/store';
 import { Ticket } from '@core/models/ticket.model';
-import { receiveMyTicket, noTicketToPickUp, pickUpTicket, fetchMyTicket, failToRecieveMyTicket, rejectMyTicket, myTicketWasRejected, fetchAllTickets, receiveAllTickets, fetchTicket, receiveTicket, updateTicket, saveTicketSuccess, createNewTicket } from '@core/actions/ticket.actions';
+import { receiveMyTicket, noTicketToPickUp, pickUpTicket, fetchMyTicket, failToRecieveMyTicket, rejectMyTicket, myTicketWasRejected, fetchAllTickets, receiveAllTickets, fetchTicket, receiveTicket, updateTicket, saveTicketSuccess, createNewTicket, deleteTicket } from '@core/actions/ticket.actions';
 import { logout } from '@core/actions/auth.actions';
 
 export interface State {
@@ -38,6 +38,7 @@ const ticketsReducer = createReducer(
     on(receiveTicket, (state, ticket) => ({ ...state, ticket: ticket })),
     on(updateTicket, (state) => ({ ...state, isTicketSaving: true })),
     on(createNewTicket, (state) => ({ ...state, isTicketSaving: true })),
+    on(deleteTicket, (state) => ({ ...state, isTicketSaving: true })),
     on(saveTicketSuccess, (state) => ({ ...state, isTicketSaving: false })),
     on(logout, () => initialState),
 );

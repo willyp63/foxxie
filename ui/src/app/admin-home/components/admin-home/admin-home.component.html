@@ -4,16 +4,16 @@
     </div>
     <div class="m-8 mt-4 lg:flex lg:justify-between lg:items-stretch">
         <div *ngIf="notReadyTickets$ | async as notReadyTickets" class="lg:w-1/4">
-            <fxx-ticket-column title="Not Ready" [tickets]="notReadyTickets"></fxx-ticket-column>
+            <fxx-ticket-column title="Not Ready" [tickets]="notReadyTickets" (delete)="delete($event)"></fxx-ticket-column>
         </div>
         <div *ngIf="readyTickets$ | async as readyTickets" class="lg:w-1/4">
-            <fxx-ticket-column title="Ready" [tickets]="readyTickets"></fxx-ticket-column>
+            <fxx-ticket-column title="Ready" [tickets]="readyTickets" (delete)="delete($event)"></fxx-ticket-column>
         </div>
         <div *ngIf="assignedTickets$ | async as assignedTickets" class="lg:w-1/4">
-            <fxx-ticket-column title="Assigned" [tickets]="assignedTickets"></fxx-ticket-column>
+            <fxx-ticket-column title="Assigned" [tickets]="assignedTickets" (delete)="delete($event)"></fxx-ticket-column>
         </div>
         <div *ngIf="doneTickets$ | async as doneTickets" class="lg:w-1/4">
-            <fxx-ticket-column title="Done" [tickets]="doneTickets"></fxx-ticket-column>
+            <fxx-ticket-column title="Done" [tickets]="doneTickets" (delete)="delete($event)"></fxx-ticket-column>
         </div>
     </div>
 </fxx-layout>

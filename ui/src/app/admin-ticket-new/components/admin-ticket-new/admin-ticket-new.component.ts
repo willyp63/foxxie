@@ -33,7 +33,6 @@ export class AdminTicketNewComponent {
   statuses = [
     TicketStatus.NotReady,
     TicketStatus.Ready,
-    TicketStatus.Assigned,
     TicketStatus.Done,
   ];
 

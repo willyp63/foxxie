@@ -55,4 +55,10 @@ export class TicketService {
       mergeMap(url => this.http.post(url, ticket) as Observable<null>),
     );
   }
+
+  deleteTicket(ticket: Ticket): Observable<null> {
+    return this.apiService.getUrl(`/tickets/${ticket._id}/delete`).pipe(
+      mergeMap(url => this.http.post(url, {}) as Observable<null>),
+    );
+  }
 }

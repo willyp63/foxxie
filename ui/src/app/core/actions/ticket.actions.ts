@@ -60,7 +60,11 @@ export const createNewTicket = createAction(
     props<Ticket>(),
 );
 
+export const deleteTicket = createAction(
+    '[Ticket] Delete Ticket',
+    props<Ticket>(),
+);
+
 export const saveTicketSuccess = createAction(
     '[Ticket] Save Ticket Success',
-    props<Ticket>(),
 );

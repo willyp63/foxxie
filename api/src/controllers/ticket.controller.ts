@@ -67,8 +67,11 @@ export class TicketController {
 
     @Post(':id')
     updateTicket(@Param('id') ticketId: MongoId, @Body() ticket: Ticket): Promise<null> {
-        console.log(ticketId);
-        console.log(ticket);
         return this.ticketService.updateTicket(ticketId, ticket);
+    }
+
+    @Post(':id/delete')
+    deleteTicket(@Param('id') ticketId: MongoId): Promise<null> {
+        return this.ticketService.deleteTicket(ticketId);
     }
 }

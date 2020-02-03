@@ -1,4 +1,4 @@
-import { Injectable } from '@nestjs/common';
+import { Injectable, BadRequestException } from '@nestjs/common';
 import { ObjectId } from 'mongodb';
 
 import { Ticket, TicketStatus, TicketRejection } from '../models/ticket.model';
@@ -29,10 +29,38 @@ export class TicketService {
 
     async updateTicket(ticketId: MongoId, ticket: Ticket): Promise<null> {
         const ticketCollection = await this.db.getTicketCollection();
+        const existingTicket = await ticketCollection.findOne({ _id: new ObjectId(ticketId) });
+
+        // dont let a ticket be moved from another status to Assigned
+        if (existingTicket.status !== TicketStatus.Assigned && ticket.status === TicketStatus.Assigned) {
+            throw new BadRequestException('You can not set a tickets status to Assigned.');
+        }
+
         await ticketCollection.updateOne(
             { _id: new ObjectId(ticketId) },
             { $set: ticket },
         );
+
+        // if ticket was moved from Assigned to another status
+        if (existingTicket.status === TicketStatus.Assigned && ticket.status !== TicketStatus.Assigned) {
+            // remove the assigned user from the ticket
+            const userCollection = await this.db.getUserCollection();
+            const userAssignedToTicket = await userCollection.findOne({ assignedTicketId: existingTicket._id });
+            
+            if (userAssignedToTicket) {
+                await userCollection.updateOne(
+                    { _id: new ObjectId(userAssignedToTicket._id) },
+                    { $set: { assignedTicketId: null } },
+                );
+            }
+        }
+
+        return null;
+    }
+
+    async deleteTicket(ticketId: MongoId): Promise<null> {
+        const ticketCollection = await this.db.getTicketCollection();
+        await ticketCollection.deleteOne({ _id: new ObjectId(ticketId) });
         return null;
     }
 
