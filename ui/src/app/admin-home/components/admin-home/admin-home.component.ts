@@ -19,16 +19,32 @@ export class AdminHomeComponent implements OnInit {
     private store: Store<AppState>,
   ) { }
 
+  ticketToDelete: Ticket;
+  isShowingDeleteConfirmDialog: boolean = false;
+
   ngOnInit() {
     this.store.dispatch(fetchAllTickets());
   }
 
   delete(ticket: Ticket) {
-    this.store.dispatch(deleteTicket(ticket));
+    this.ticketToDelete = ticket;
+    this.isShowingDeleteConfirmDialog = true;
+  }
+
+  onCancelDelete() {
+    this.ticketToDelete = null;
+    this.isShowingDeleteConfirmDialog = false;
+  }
+
+  onConfirmDelete() {
+    this.store.dispatch(deleteTicket(this.ticketToDelete));
 
     // TODO: unsubscribe
     this.store.select(isTicketSaving).subscribe((isSaving) => {
       if (!isSaving) {
+        this.ticketToDelete = null;
+        this.isShowingDeleteConfirmDialog = false;
+
         this.store.dispatch(fetchAllTickets());
       }
     });

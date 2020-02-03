@@ -17,3 +17,11 @@
         </div>
     </div>
 </fxx-layout>
+<fxx-dialog
+    [isOpen]="isShowingDeleteConfirmDialog"
+    title="Are you sure you want to delete this ticket?"
+    cancelText="Cancel"
+    confirmText="Delete"
+    (cancel)="onCancelDelete()"
+    (confirm)="onConfirmDelete()"
+></fxx-dialog>
