@@ -33,14 +33,13 @@ export class Ticket extends MongoDoc {
     priority: number;
 
     @Expose()
-    @IsNotEmpty()
     description: string;
 
     @Expose()
-    @IsNotEmpty()
     itMust: string[];
 
     @Expose()
+    @IsNotEmpty()
     status: TicketStatus;
     
     rejections?: TicketRejection[];
